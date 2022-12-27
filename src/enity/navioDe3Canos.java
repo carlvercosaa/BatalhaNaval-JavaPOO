@@ -4,7 +4,7 @@ import tabuleiro.tabuleiro;
 public class navioDe3Canos extends embarcacao {
     protected int tamanho = 3;
    
-    public navioDe2Canos(enity.jogador jogador, int numeroJogador) {
+    public navioDe3Canos(enity.jogador jogador, int numeroJogador) {
         super(jogador, numeroJogador, 3);
     }
 
