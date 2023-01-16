@@ -3,20 +3,24 @@ package enity;
 import java.util.Scanner;
 
 public class jogador {
-    private int [][] tabuleiro;
+    private tabuleiro tabuleiro;
     private int NUMERODOJOGADOR;
+    private navioDe1Cano navioDe1Cano;
+    private navioDe2Canos navioDe2Canos;
+    private navioDe3Canos navioDe3Canos;
+    private navioDe4Canos navioDe4Canos;
+    private portaAvioes portaAvioes;
 
-public jogador(int numeroDoJogador, int[][] tabuleiroJogador) {
-	this.tabuleiro = tabuleiroJogador;
+public jogador(int numeroDoJogador) {
+
+	this.tabuleiro = new tabuleiro(this);
+	this.navioDe1Cano = new navioDe1Cano(this);
+	this.navioDe2Canos = new navioDe2Cano(this);
+	this.navioDe3Canos = new navioDe3Cano(this);
+	this.navioDe4Canos = new navioDe4Cano(this);
+	this.portaAvioes = new portaAvioes(this);
 	this.NUMERODOJOGADOR = numeroDoJogador;
-    }
-
-    public int[][] getTabuleiro() {
-        return tabuleiro;
-    }
-
-    public void setTabuleiro(int[][] tabuleiro) {
-        this.tabuleiro = tabuleiro;
+	
     }
 
     public int getNUMERODOJOGADOR() {
@@ -46,3 +50,4 @@ public jogador(int numeroDoJogador, int[][] tabuleiroJogador) {
 	return true;
     }
 }
+

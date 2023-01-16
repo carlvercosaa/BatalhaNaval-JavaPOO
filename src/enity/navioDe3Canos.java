@@ -1,21 +1,24 @@
 package enity;
+import java.util.Scanner;
 import tabuleiro.tabuleiro;
 
-public class navioDe3Canos extends embarcacao {
-    protected int tamanho = 3;
-   
-    public navioDe3Canos(enity.jogador jogador, int numeroJogador) {
-        super(jogador, numeroJogador, 3);
+public class navioDe3Canos extends embarcacao{
+    
+    public navioDe3Canos(jogador jogador) {
+        super(jogador, "navio De 3 Canos", 3);
     }
 
     @Override
-    public String toString() {
-        return "navioDe1Cano{" + '}';
-    }
+	public String getnomeDaEmbarcacao() {
+		return super.getNomeDaEmbarcacao();
+	}
+
+	@Override
+	public int getTamanho() {
+		return super.getTamanho();
+	}
    
     public void escolherPosicaoDaEmbarcacao(tabuleiro  tabuleiro) {
-		// TODO Auto-generated method stub
         super.escolherPosicaoDaEmbarcacao(tabuleiro);
-    }
-    
+    }   
 }

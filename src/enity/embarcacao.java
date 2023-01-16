@@ -4,8 +4,8 @@ import java.util.Scanner;
 import tabuleiro.tabuleiro;
 
 public class embarcacao {
-    private int numeroJogador;
     private jogador jogador;
+    private String nomeDaEmbarcacao;
     private int tamanho;
 
     public int getTamanho() {
@@ -16,13 +16,15 @@ public class embarcacao {
         this.tamanho = tamanho;
     }
     
-    
+    public String getNomeDaEmbarcacao() {
+    	return this.nomeDaEmbarcacao;
+    }
 
-    public embarcacao(jogador jogador,int numeroJogador, int tamanho){
-	super();
+    public embarcacao(jogador jogador, String nomeDaEmbarcacao, int tamanho) {
+    	
         this.jogador = jogador;
-	this.numeroJogador = numeroJogador;
         this.tamanho = tamanho;
+        this.nomeDaEmbarcacao = nomeDaEmbarcacao;
     }
 
     public void escolherPosicaoDaEmbarcacao(tabuleiro tabuleiro){
@@ -31,8 +33,8 @@ public class embarcacao {
         int linha;
         int coluna;
         
-	System.out.println("Jogador: " + jogador.getNUMERODOJOGADOR());
-	System.out.println("Escolha o eixo(vertical ou horizontal)" );
+        System.out.println("Jogador: " + jogador);
+        System.out.println("Escolha o eixo(vertical ou horizontal)" );
         String eixo = scanner.next().toUpperCase();
     
         if(eixo.equals("VERTICAL")){
