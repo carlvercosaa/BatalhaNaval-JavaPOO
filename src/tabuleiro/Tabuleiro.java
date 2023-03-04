@@ -3,31 +3,31 @@ package tabuleiro;
 public class Tabuleiro {
     private static int[][] tabuleiroJogador = new int[10][10];
 
-    public static int[][] getTabuleiroJogador() {
-        return tabuleiroJogador;
+    public Tabuleiro() {
+    	this.inicializaGrelha();
     }
-
-    public static int[][] inicializaGrelha(){
+    
+    
+    public static void inicializaGrelha(){
             for(int linha=0 ; linha < 10 ; linha++ ){
                 for(int coluna=0 ; coluna < 10 ; coluna++ ){
                     Tabuleiro.tabuleiroJogador[linha][coluna]=-1;
                 }
             }
-            return Tabuleiro.tabuleiroJogador;
         }
         
-	 public static void mostraGrelhaDeAtaque(int[][] tabuleiro){
+	 public static void mostraGrelhaDeDefesa(){
 	        System.out.println("\t0 \t1 \t2 \t3 \t4 \t5 \t6 \t7 \t8 \t9");
 	        System.out.println();
 	        
 	        for(int linha=0 ; linha < 10 ; linha++ ){
 	            System.out.print((linha)+"");
 	            for(int coluna=0 ; coluna < 10 ; coluna++ ){
-	                if(tabuleiro[linha][coluna]==-1){
+	                if(tabuleiroJogador[linha][coluna]==-1){
 	                    System.out.print("\t"+"~");
-	                }else if(tabuleiro[linha][coluna]==0){
+	                }else if(tabuleiroJogador[linha][coluna]==0){
 	                    System.out.print("\t"+"*");
-	                }else if(tabuleiro[linha][coluna]==1){
+	                }else if(tabuleiroJogador[linha][coluna]==1){
 	                    System.out.print("\t"+"X");
 	                }
 	                
@@ -92,4 +92,10 @@ public class Tabuleiro {
             }
         }
     }
+
+
+    public static int[][] getTabuleiroJogador() {
+        return tabuleiroJogador;
+    }
+
 }
