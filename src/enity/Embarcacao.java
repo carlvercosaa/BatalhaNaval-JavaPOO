@@ -60,18 +60,34 @@ public class Embarcacao {
 
                 }
                 
-                else if(direcao.equals("CIMA")) {
-                	jogador.getTabuleiro().mostraGrelhaDeDefesa();         
+                else if(direcao.equals("CIMA")) {    
                 	jogador.getTabuleiro().verificarEPlotarVerticalParaCima(this.tamanho, linha, coluna);
                 	jogador.getTabuleiro().mostraGrelhaDeDefesa();
                 }
+            }
             else if(eixo.equals("HORIZONTAL")){
-            	
+            	jogador.getTabuleiro().mostraGrelhaDeDefesa(); 
+                System.out.print("digite a coluna: ");
+                coluna = scanner.nextInt();
+                
+                System.out.print("digite a linha: ");
+                linha = scanner.nextInt();
+                
+                System.out.println("Escolha a direcao(DIREITA ou ESQUERDA)" );
+                direcao = scanner.next().toUpperCase();
+                
+                if(direcao.equals("DIREITA")) {        
+                	jogador.getTabuleiro().verificarEPlotarHorizontalParaDireita(this.tamanho, linha, coluna);
+                	jogador.getTabuleiro().mostraGrelhaDeDefesa();
+                }
+                else if(direcao.equals("ESQUERDA")){
+                	jogador.getTabuleiro().verificarEPlotarHorizontalParaEsquerda(this.tamanho, linha, coluna);
+                	jogador.getTabuleiro().mostraGrelhaDeDefesa();
+                }
             }
             
         }
        }
-    }
     
     public int getTamanho() {
         return tamanho;
