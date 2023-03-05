@@ -24,19 +24,105 @@ public class Jogador {
     }
 
 
-	public boolean disparo(Jogador jogador, Scanner scanner) {
-	int coluna;
-	int linha;
-	System.out.println("----------------------------");
-	System.out.println(this);
-	System.out.println("Dispare contra o inimigo");
-	System.out.print("digite a coluna: ");
-	coluna = scanner.nextInt();
-	System.out.print("digite a linha: ");
-	linha = scanner.nextInt();
-
-	return true;
+	public boolean disparo(Jogador adversario) {
+		Scanner scanner = new Scanner(System.in);
+		
+		int coluna;
+		int linha;
+		String[] posicoes = new String[3];
+		
+		for(int i = 0; i < 3; i++) {
+			System.out.println("----------------------------");
+			System.out.println("Jogador" + this.numero);
+			System.out.println("Dispare contra o inimigo");
+			System.out.print("digite a coluna: ");
+			coluna = scanner.nextInt();
+			System.out.print("digite a linha: ");
+			linha = scanner.nextInt();
+			
+			posicoes[i] = adversario.getTabuleiro().verificaDisparo(linha, coluna);
+			
+		}
+		
+		for(int c = 0; c < 3; c++) {
+			System.out.println(posicoes[c]);
+		}
+		
+	
+		return true;
     }
+	
+    public void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao){
+        Scanner scanner = new Scanner(System.in);
+        
+        int linha;
+        int coluna;
+        String direcao;
+        
+        if(nomeDaEmbarcacao.getNomeDaEmbarcacao()==("Navio_De_1_Cano")){
+        	this.tabuleiro.mostraGrelhaDeDefesa();
+            
+        	System.out.println("Jogador: " + this.numero);
+        	
+        	System.out.print("digite a coluna: ");
+            coluna = scanner.nextInt();
+            
+            System.out.print("digite a linha: ");
+            linha = scanner.nextInt();
+            
+            this.tabuleiro.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+            
+            this.tabuleiro.mostraGrelhaDeDefesa();
+            
+        }else{
+            System.out.println("Escolha o eixo(vertical ou horizontal)" );
+            String eixo = scanner.next().toUpperCase();
+            
+            if(eixo.equals("VERTICAL")){
+            	this.tabuleiro.mostraGrelhaDeDefesa(); 
+                System.out.print("digite a coluna: ");
+                coluna = scanner.nextInt();
+                
+                System.out.print("digite a linha: ");
+                linha = scanner.nextInt();
+                
+                System.out.println("Escolha a direcao(BAIXO ou CIMA)" );
+                direcao = scanner.next().toUpperCase();
+                
+                if(direcao.equals("BAIXO")) {        
+                	this.tabuleiro.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	this.tabuleiro.mostraGrelhaDeDefesa();
+
+                }
+                
+                else if(direcao.equals("CIMA")) {    
+                	this.tabuleiro.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	this.tabuleiro.mostraGrelhaDeDefesa();
+                }
+            }
+            else if(eixo.equals("HORIZONTAL")){
+            	this.tabuleiro.mostraGrelhaDeDefesa(); 
+                System.out.print("digite a coluna: ");
+                coluna = scanner.nextInt();
+                
+                System.out.print("digite a linha: ");
+                linha = scanner.nextInt();
+                
+                System.out.println("Escolha a direcao(DIREITA ou ESQUERDA)" );
+                direcao = scanner.next().toUpperCase();
+                
+                if(direcao.equals("DIREITA")) {        
+                	this.tabuleiro.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	this.tabuleiro.mostraGrelhaDeDefesa();
+                }
+                else if(direcao.equals("ESQUERDA")){
+                	this.tabuleiro.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	this.tabuleiro.mostraGrelhaDeDefesa();
+                }
+            }
+            
+        }
+       }
 
 	public Tabuleiro getTabuleiro() {
 		return tabuleiro;
