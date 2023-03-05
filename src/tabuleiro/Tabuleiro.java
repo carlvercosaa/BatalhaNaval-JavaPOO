@@ -1,5 +1,7 @@
 package tabuleiro;
 
+import enity.Jogador;
+
 public class Tabuleiro {
     private int[][] tabuleiroJogador = new int[10][10];
 
@@ -172,21 +174,34 @@ public class Tabuleiro {
             }
     	}
     }
+    public void destroiParteDaEmbarcacao(int linha, int coluna) {
+    	this.tabuleiroJogador[linha][coluna] = -1;
+    }
     
-    public String verificaDisparo(int linha, int coluna) {
+    public String verificaDisparo(int linha, int coluna, Jogador adversario) {
     	if(this.tabuleiroJogador[linha][coluna]== 1) {
-    		return "Afundou o meu Navio-de-1-cano na posição "+ linha + "-" + coluna; 
+    		adversario.setVida(adversario.getVida()-1);
+    		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
+    		return "Afundou o meu Navio-de-1-cano na posição "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna] == 2) {
+    		adversario.setVida(adversario.getVida()-1);
+    		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
     		return "Acertou o Navio-De-2-Canos na posição "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna]== 3) {
+    		adversario.setVida(adversario.getVida()-1);
+    		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
     		return "Acertou o Navio-De-3-Canos na posição "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna]== 4) {
+    		adversario.setVida(adversario.getVida()-1);
+    		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
     		return "Acertou o Navio-De-4-Canos na posição "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna]== 5) {
+    		adversario.setVida(adversario.getVida()-1);
+    		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
     		return "Acertou o Porta-Aviões na posicao "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna]== -1) {

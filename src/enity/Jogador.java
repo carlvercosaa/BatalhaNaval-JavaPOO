@@ -12,6 +12,7 @@ public class Jogador {
     private NavioDe4Canos navioDe4Canos;
     private PortaAvioes portaAvioes;
     private int numero;
+    private int vida = 25;
     
     public Jogador(int numero){
     	this.tabuleiro = new Tabuleiro();
@@ -40,7 +41,7 @@ public class Jogador {
 			System.out.print("digite a linha: ");
 			linha = scanner.nextInt();
 			
-			posicoes[i] = adversario.getTabuleiro().verificaDisparo(linha, coluna);
+			posicoes[i] = adversario.getTabuleiro().verificaDisparo(linha, coluna, adversario);
 			
 		}
 		
@@ -192,9 +193,15 @@ public class Jogador {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	
-	
 
 
+	public int getVida() {
+		return vida;
+	}
+
+
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
 }
 
