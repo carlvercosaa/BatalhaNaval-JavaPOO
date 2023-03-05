@@ -44,11 +44,31 @@ public class Tabuleiro {
                 contador += 1;
             }
         }
-        if(contador == tamanho){
+        if(contador == tamanho && tamanho == 1){
             for(int c = 0; c < tamanho; c++){
                 this.tabuleiroJogador[linha+c][coluna] = 1;
             }
         }
+        else if(contador == tamanho && tamanho == 2){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha+c][coluna] = 2;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 3){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha+c][coluna] = 3;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 4){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha+c][coluna] = 4;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 5){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha+c][coluna] = 5;
+            }
+    	}
     }
     
     public void verificarEPlotarVerticalParaCima(int tamanho, int linha, int coluna) {
@@ -58,11 +78,31 @@ public class Tabuleiro {
                 contador += 1;
             }
         }
-    	if(contador == tamanho){
+    	if(contador == tamanho && tamanho == 1){
             for(int c = 0; c < tamanho; c++){
                 this.tabuleiroJogador[linha-c][coluna] = 1;
             }
         }
+    	else if(contador == tamanho && tamanho == 2){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha-c][coluna] = 2;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 3){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha-c][coluna] = 3;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 4){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha-c][coluna] = 4;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 5){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha-c][coluna] = 5;
+            }
+    	}
     }
     
     public void verificarEPlotarHorizontalParaDireita(int tamanho, int linha, int coluna) {
@@ -72,11 +112,31 @@ public class Tabuleiro {
                 contador += 1;
             }
         }
-    	if(contador == tamanho){
+    	if(contador == tamanho && tamanho == 1){
             for(int c = 0; c < tamanho; c++){
                 this.tabuleiroJogador[linha][coluna+c] = 1;
             }
         }
+    	else if(contador == tamanho && tamanho == 2){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha][coluna+c] = 2;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 3){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha][coluna+c] = 3;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 4){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha][coluna+c] = 4;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 5){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha][coluna+c] = 5;
+            }
+    	}
     }
  
     public void verificarEPlotarHorizontalParaEsquerda(int tamanho, int linha, int coluna) {
@@ -86,11 +146,31 @@ public class Tabuleiro {
                 contador += 1;
             }
         }
-    	if(contador == tamanho){
+    	if(contador == tamanho && tamanho ==1){
             for(int c = 0; c < tamanho; c++){
                 this.tabuleiroJogador[linha][coluna-c] = 1;
             }
         }
+    	else if(contador == tamanho && tamanho == 2){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha][coluna-c] = 2;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 3){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha][coluna-c] = 3;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 4){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha][coluna-c] = 4;
+            }
+    	}
+    	else if(contador == tamanho && tamanho == 5){
+            for(int c = 0; c < tamanho; c++){
+                this.tabuleiroJogador[linha][coluna-c] = 5;
+            }
+    	}
     }
     
     public String verificaDisparo(int linha, int coluna) {
