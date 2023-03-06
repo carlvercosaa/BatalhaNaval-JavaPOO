@@ -131,8 +131,18 @@ public class Jogador {
     
     public void plotandoTodosNavios() {
     	List<Embarcacao> embarcacoes = Arrays.asList(getNavioDe1Cano(), getNavioDe2Canos(), getNavioDe3Canos(), getNavioDe4Canos(), getPortaAvioes());
+    	int y = 4;
     	for(int i = 0; i < embarcacoes.size(); i++) {
-    		escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
+    		for(int x = 0; x < y; x++) {
+    			System.out.println(y);
+    			System.out.printf("plotando navio de %d cano \n", i+1);
+    			escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
+    		}
+    		y = y - 1;
+    		if(y == 0) {
+    			escolherPosicaoDaEmbarcacao(embarcacoes.get(4));
+    		}
+
     	}
     }
 
