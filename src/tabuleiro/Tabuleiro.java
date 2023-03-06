@@ -14,9 +14,9 @@ public class Tabuleiro {
             for(int linha=0 ; linha < 10 ; linha++ ){
                 for(int coluna=0 ; coluna < 10 ; coluna++ ){
                     this.tabuleiroJogador[linha][coluna]=-1;
-                }
-            }
+             }
         }
+    }
         
 	 public void mostraGrelhaDeDefesa(){
 	        System.out.println("\t0 \t1 \t2 \t3 \t4 \t5 \t6 \t7 \t8 \t9");

@@ -1,6 +1,8 @@
 package enity;
 
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.List;
 
 import tabuleiro.Tabuleiro;
 
@@ -13,6 +15,8 @@ public class Jogador {
     private PortaAvioes portaAvioes;
     private int numero;
     private int vida = 25;
+
+    
     
     public Jogador(int numero){
     	this.tabuleiro = new Tabuleiro();
@@ -124,6 +128,13 @@ public class Jogador {
             
         }
        }
+    
+    public void plotandoTodosNavios() {
+    	List<Embarcacao> embarcacoes = Arrays.asList(getNavioDe1Cano(), getNavioDe2Canos(), getNavioDe3Canos(), getNavioDe4Canos(), getPortaAvioes());
+    	for(int i = 0; i < embarcacoes.size(); i++) {
+    		escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
+    	}
+    }
 
 	public Tabuleiro getTabuleiro() {
 		return tabuleiro;
