@@ -25,12 +25,12 @@ public class Tabuleiro {
 	        for(int linha=0 ; linha < 10 ; linha++ ){
 	            System.out.print((linha)+"");
 	            for(int coluna=0 ; coluna < 10 ; coluna++ ){
-	                if(this.tabuleiroJogador[linha][coluna]==-1){
+	                if(this.tabuleiroJogador[linha][coluna]== -1){
 	                    System.out.print("\t"+"~");
-	                }else if(this.tabuleiroJogador[linha][coluna]==1 || this.tabuleiroJogador[linha][coluna]==2 || this.tabuleiroJogador[linha][coluna]==3 || this.tabuleiroJogador[linha][coluna]==4 ){
+	                }else if(this.tabuleiroJogador[linha][coluna]== 1 || this.tabuleiroJogador[linha][coluna]== 2 || this.tabuleiroJogador[linha][coluna]== 3 || this.tabuleiroJogador[linha][coluna]== 4 ){
 	                    System.out.print("\t"+"N");
-	                }else if(this.tabuleiroJogador[linha][coluna]==1){
-	                    System.out.print("\t"+"X");
+	                }else if(this.tabuleiroJogador[linha][coluna]== 5) {
+	                	System.out.print("\t"+"P");
 	                }
 	                
 	            }
@@ -41,9 +41,26 @@ public class Tabuleiro {
 
     public void verificarEPlotarVerticalParaBaixo(int tamanho, int  linha, int  coluna){
         int contador = 0;
-        for(int c = 0; c < tamanho; c++){
-            if(this.tabuleiroJogador[linha+c][coluna] == -1){
-                contador += 1;
+        
+        if(tamanho == 5) {
+    		for(int c = 0; c < 3; c++){
+                if(this.tabuleiroJogador[linha+c][coluna] == -1){
+                    contador += 1;
+                }
+                if(c == 2) {
+                	if(this.tabuleiroJogador[linha+c][coluna-1] == -1){
+                        contador += 1;
+                    }
+                	if(this.tabuleiroJogador[linha+c][coluna+1] == -1) {
+                		contador += 1;
+                	}
+                }
+    		}
+        }else {
+        	for(int c = 0; c < tamanho; c++){
+                if(this.tabuleiroJogador[linha+c][coluna] == -1){
+                    contador += 1;
+                }
             }
         }
         if(contador == tamanho && tamanho == 1){
@@ -67,17 +84,38 @@ public class Tabuleiro {
             }
     	}
     	else if(contador == tamanho && tamanho == 5){
-            for(int c = 0; c < tamanho; c++){
+            for(int c = 0; c < 3; c++){
                 this.tabuleiroJogador[linha+c][coluna] = 5;
+                if(c == 2) {
+                	this.tabuleiroJogador[linha+c][coluna-1] = 5;
+                	this.tabuleiroJogador[linha+c][coluna+1] = 5;
+                }
             }
     	}
     }
     
     public void verificarEPlotarVerticalParaCima(int tamanho, int linha, int coluna) {
     	int contador = 0;
-    	for(int c = 0; c < tamanho; c++){
-            if(this.tabuleiroJogador[linha-c][coluna] == -1){
-                contador += 1;
+    	
+    	if(tamanho == 5) {
+    		for(int c = 0; c < 3; c++){
+                if(this.tabuleiroJogador[linha-c][coluna] == -1){
+                    contador += 1;
+                }
+                if(c == 2) {
+                	if(this.tabuleiroJogador[linha-c][coluna-1] == -1){
+                        contador += 1;
+                    }
+                	if(this.tabuleiroJogador[linha-c][coluna+1] == -1) {
+                		contador += 1;
+                	}
+                }
+    		}
+        }else {
+        	for(int c = 0; c < tamanho; c++){
+                if(this.tabuleiroJogador[linha-c][coluna] == -1){
+                    contador += 1;
+                }
             }
         }
     	if(contador == tamanho && tamanho == 1){
@@ -101,17 +139,38 @@ public class Tabuleiro {
             }
     	}
     	else if(contador == tamanho && tamanho == 5){
-            for(int c = 0; c < tamanho; c++){
+            for(int c = 0; c < 3; c++){
                 this.tabuleiroJogador[linha-c][coluna] = 5;
+                if(c == 2) {
+                	this.tabuleiroJogador[linha-c][coluna+1] = 5;
+                	this.tabuleiroJogador[linha-c][coluna-1] = 5;
+                }
             }
     	}
     }
     
     public void verificarEPlotarHorizontalParaDireita(int tamanho, int linha, int coluna) {
     	int contador = 0;
-    	for(int c = 0; c < tamanho; c++){
-            if(this.tabuleiroJogador[linha][coluna+c] == -1){
-                contador += 1;
+    	
+    	if(tamanho == 5) {
+    		for(int c = 0; c < 3; c++){
+                if(this.tabuleiroJogador[linha][coluna+c] == -1){
+                    contador += 1;
+                }
+                if(c == 2) {
+                	if(this.tabuleiroJogador[linha+1][coluna+c] == -1){
+                        contador += 1;
+                    }
+                	if(this.tabuleiroJogador[linha-1][coluna+c] == -1) {
+                		contador += 1;
+                	}
+                }
+    		}
+        }else {
+        	for(int c = 0; c < tamanho; c++){
+                if(this.tabuleiroJogador[linha][coluna+c] == -1){
+                    contador += 1;
+                }
             }
         }
     	if(contador == tamanho && tamanho == 1){
@@ -135,18 +194,39 @@ public class Tabuleiro {
             }
     	}
     	else if(contador == tamanho && tamanho == 5){
-            for(int c = 0; c < tamanho; c++){
+            for(int c = 0; c < 3; c++){
                 this.tabuleiroJogador[linha][coluna+c] = 5;
+                if(c == 2) {
+                	this.tabuleiroJogador[linha-1][coluna+c] = 5;
+                	this.tabuleiroJogador[linha+1][coluna+c] = 5;
+                }
             }
     	}
     }
  
     public void verificarEPlotarHorizontalParaEsquerda(int tamanho, int linha, int coluna) {
     	int contador = 0;
-    	for(int c = 0; c < tamanho; c++){
-            if(this.tabuleiroJogador[linha][coluna-c] == -1){
-                contador += 1;
-            }
+    	
+    	if(tamanho == 5) {
+    		for(int c = 0; c < 3; c++){
+                if(this.tabuleiroJogador[linha][coluna-c] == -1){
+                    contador += 1;
+                }
+                if(c == 2) {
+                	if(this.tabuleiroJogador[linha+1][coluna-c] == -1){
+                        contador += 1;
+                    }
+                	if(this.tabuleiroJogador[linha-1][coluna-c] == -1) {
+                		contador += 1;
+                	}
+                }
+    		}
+        }else {
+        	for(int c = 0; c < tamanho; c++){
+                if(this.tabuleiroJogador[linha][coluna-c] == -1){
+                    contador += 1;
+                }
+        	}
         }
     	if(contador == tamanho && tamanho ==1){
             for(int c = 0; c < tamanho; c++){
@@ -169,11 +249,16 @@ public class Tabuleiro {
             }
     	}
     	else if(contador == tamanho && tamanho == 5){
-            for(int c = 0; c < tamanho; c++){
+            for(int c = 0; c < 3; c++){
                 this.tabuleiroJogador[linha][coluna-c] = 5;
+                if(c == 2) {
+                	this.tabuleiroJogador[linha-1][coluna-c] = 5;
+                	this.tabuleiroJogador[linha+1][coluna-c] = 5;
+                }
             }
     	}
     }
+    
     public void destroiParteDaEmbarcacao(int linha, int coluna) {
     	this.tabuleiroJogador[linha][coluna] = -1;
     }
