@@ -4,7 +4,8 @@ import enity.Jogador;
 
 public class Tabuleiro {
     private int[][] tabuleiroJogador = new int[10][10];
-
+    private int[][] tabuleiroJogadorAtaque = new int[10][10];
+    
     public Tabuleiro() {
     	this.inicializaGrelha();
     }
@@ -14,7 +15,8 @@ public class Tabuleiro {
             for(int linha=0 ; linha < 10 ; linha++ ){
                 for(int coluna=0 ; coluna < 10 ; coluna++ ){
                     this.tabuleiroJogador[linha][coluna]=-1;
-             }
+                    this.tabuleiroJogadorAtaque[linha][coluna]=-1;
+                }
         }
     }
         
@@ -38,6 +40,26 @@ public class Tabuleiro {
 	        }
 
     }
+	 
+	 public void mostraGrelhaDeAtaque(Jogador adversario, int linha, int coluna){
+		 	System.out.println("\t0 \t1 \t2 \t3 \t4 \t5 \t6 \t7 \t8 \t9");
+		 	System.out.println();
+		 	for(int i = 0; i < 10; i++) {
+		 		for(int j = 0; j < 10; j++) {
+		 			if(this.tabuleiroJogador[i][j] != -1){
+		 				this.tabuleiroJogadorAtaque[i][j] = 1;
+		 			}
+		 			if(this.tabuleiroJogadorAtaque[i][j] == 1) {
+		 				System.out.print("\t"+"X");
+		 			}
+		 			else {
+		 				System.out.print("\t"+"~");
+		 			}
+		 		}
+		 	}
+		 	
+		 	
+	 }	
 
     public void verificarEPlotarVerticalParaBaixo(int tamanho, int  linha, int  coluna){
         int contador = 0;
@@ -267,29 +289,35 @@ public class Tabuleiro {
     	if(this.tabuleiroJogador[linha][coluna]== 1) {
     		adversario.setVida(adversario.getVida()-1);
     		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
+    		mostraGrelhaDeAtaque(adversario, linha, coluna);
     		return "Afundou o meu Navio-de-1-cano na posição "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna] == 2) {
     		adversario.setVida(adversario.getVida()-1);
     		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
+    		mostraGrelhaDeAtaque(adversario, linha, coluna);
     		return "Acertou o Navio-De-2-Canos na posição "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna]== 3) {
     		adversario.setVida(adversario.getVida()-1);
     		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
+    		mostraGrelhaDeAtaque(adversario, linha, coluna);
     		return "Acertou o Navio-De-3-Canos na posição "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna]== 4) {
     		adversario.setVida(adversario.getVida()-1);
     		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
+    		mostraGrelhaDeAtaque(adversario, linha, coluna);
     		return "Acertou o Navio-De-4-Canos na posição "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna]== 5) {
     		adversario.setVida(adversario.getVida()-1);
     		adversario.getTabuleiro().destroiParteDaEmbarcacao(linha, coluna);
+    		mostraGrelhaDeAtaque(adversario, linha, coluna);
     		return "Acertou o Porta-Aviões na posicao "+ linha + "-" + coluna;
     	}
     	else if(this.tabuleiroJogador[linha][coluna]== -1) {
+    		mostraGrelhaDeAtaque(adversario, linha, coluna);
     		return "Acertou água na posição "+ linha + "-" + coluna;
     	}
     	else {
