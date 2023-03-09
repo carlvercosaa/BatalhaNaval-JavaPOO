@@ -5,9 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import tabuleiro.Tabuleiro;
+import tabuleiro.TabuleiroDeAtaque;
+import tabuleiro.TabuleiroDeDefesa;
 
 public class Jogador {
-    private Tabuleiro tabuleiro;
+    private TabuleiroDeAtaque tabuleiroAtaque;
+    private TabuleiroDeDefesa tabuleiroDefesa;
     private NavioDe1Cano navioDe1Cano;
     private NavioDe2Canos navioDe2Canos;
     private NavioDe3Canos navioDe3Canos;
@@ -19,7 +22,8 @@ public class Jogador {
     
     
     public Jogador(int numero){
-    	this.tabuleiro = new Tabuleiro();
+    	this.tabuleiroAtaque = new TabuleiroDeAtaque();
+    	this.tabuleiroDefesa = new TabuleiroDeDefesa();
     	this.navioDe1Cano = new NavioDe1Cano(this);
     	this.navioDe2Canos = new NavioDe2Canos(this);
     	this.navioDe3Canos = new NavioDe3Canos(this);
@@ -45,7 +49,7 @@ public class Jogador {
 			System.out.print("digite a linha: ");
 			linha = scanner.nextInt();
 			
-			posicoes[i] = adversario.getTabuleiro().verificaDisparo(linha, coluna, adversario);
+			posicoes[i] = adversario.getTabuleiroDefesa().verificaDisparo(linha, coluna, adversario);
 			
 		}
 		
@@ -56,8 +60,8 @@ public class Jogador {
 	
 		return true;
     }
-	
-    public void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao){
+
+	public void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao){
         Scanner scanner = new Scanner(System.in);
         
         int linha;
@@ -65,7 +69,7 @@ public class Jogador {
         String direcao;
         
         if(nomeDaEmbarcacao.getNomeDaEmbarcacao()==("Navio_De_1_Cano")){
-        	this.tabuleiro.mostraGrelhaDeDefesa();
+        	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
             
         	System.out.println("Jogador: " + this.numero);
         	
@@ -75,16 +79,16 @@ public class Jogador {
             System.out.print("digite a linha: ");
             linha = scanner.nextInt();
             
-            this.tabuleiro.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+            this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
             
-            this.tabuleiro.mostraGrelhaDeDefesa();
+            this.tabuleiroDefesa.mostraGrelhaDeDefesa();
             
         }else{
             System.out.println("Escolha o eixo(vertical ou horizontal)" );
             String eixo = scanner.next().toUpperCase();
             
             if(eixo.equals("VERTICAL")){
-            	this.tabuleiro.mostraGrelhaDeDefesa(); 
+            	this.tabuleiroDefesa.mostraGrelhaDeDefesa(); 
                 System.out.print("digite a coluna: ");
                 coluna = scanner.nextInt();
                 
@@ -95,18 +99,18 @@ public class Jogador {
                 direcao = scanner.next().toUpperCase();
                 
                 if(direcao.equals("BAIXO")) {        
-                	this.tabuleiro.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                	this.tabuleiro.mostraGrelhaDeDefesa();
+                	this.tabuleiroDefesa.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
 
                 }
                 
                 else if(direcao.equals("CIMA")) {    
-                	this.tabuleiro.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                	this.tabuleiro.mostraGrelhaDeDefesa();
+                	this.tabuleiroDefesa.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
                 }
             }
             else if(eixo.equals("HORIZONTAL")){
-            	this.tabuleiro.mostraGrelhaDeDefesa(); 
+            	this.tabuleiroDefesa.mostraGrelhaDeDefesa(); 
                 System.out.print("digite a coluna: ");
                 coluna = scanner.nextInt();
                 
@@ -117,12 +121,12 @@ public class Jogador {
                 direcao = scanner.next().toUpperCase();
                 
                 if(direcao.equals("DIREITA")) {        
-                	this.tabuleiro.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                	this.tabuleiro.mostraGrelhaDeDefesa();
+                	this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
                 }
                 else if(direcao.equals("ESQUERDA")){
-                	this.tabuleiro.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                	this.tabuleiro.mostraGrelhaDeDefesa();
+                	this.tabuleiroDefesa.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
                 }
             }
             
@@ -145,11 +149,6 @@ public class Jogador {
 
     	}
     }
-
-	public Tabuleiro getTabuleiro() {
-		return tabuleiro;
-	}
-
 
 	public NavioDe1Cano getNavioDe1Cano() {
 		return navioDe1Cano;
@@ -200,12 +199,7 @@ public class Jogador {
 		this.portaAvioes = portaAvioes;
 	}
 
-
-	public void setTabuleiro(Tabuleiro tabuleiro) {
-		this.tabuleiro = tabuleiro;
-	}
-
-
+	
 	public int getNumero() {
 		return numero;
 	}
@@ -224,5 +218,25 @@ public class Jogador {
 	public void setVida(int vida) {
 		this.vida = vida;
 	}
+	
+    public TabuleiroDeAtaque getTabuleiroAtaque() {
+		return tabuleiroAtaque;
+	}
+
+
+	public void setTabuleiroAtaque(TabuleiroDeAtaque tabuleiroAtaque) {
+		this.tabuleiroAtaque = tabuleiroAtaque;
+	}
+
+
+	public TabuleiroDeDefesa getTabuleiroDefesa() {
+		return tabuleiroDefesa;
+	}
+
+
+	public void setTabuleiroDefesa(TabuleiroDeDefesa tabuleiroDefesa) {
+		this.tabuleiroDefesa = tabuleiroDefesa;
+	}
+
 }
 
