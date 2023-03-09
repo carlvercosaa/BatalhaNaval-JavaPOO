@@ -1,10 +1,6 @@
 package enity;
 
-import java.util.Scanner;
-
-import tabuleiro.Tabuleiro;
-
-public class Embarcacao {
+public abstract class Embarcacao {
     private Jogador jogador;
     private String nomeDaEmbarcacao;
     private int tamanho;

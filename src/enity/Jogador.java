@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.util.Arrays;
 import java.util.List;
 
-import tabuleiro.Tabuleiro;
 import tabuleiro.TabuleiroDeAtaque;
 import tabuleiro.TabuleiroDeDefesa;
 
@@ -60,6 +59,30 @@ public class Jogador {
 	
 		return true;
     }
+	
+	public void marcarNaGrelhaDeAtaque() {
+		Scanner scanner = new Scanner(System.in);
+		
+		int linha;
+		int coluna;
+		int marca;
+		
+		System.out.println("----------------------------");
+		System.out.println("Jogador" + this.numero);
+		System.out.println("Marque em sua 'Grelha de Ataque'");
+		System.out.print("digite a coluna: ");
+		coluna = scanner.nextInt();
+		System.out.print("digite a linha: ");
+		linha = scanner.nextInt();
+		System.out.println("----------------------------");
+		System.out.println("1 - Para marcar N (Navio)");
+		System.out.println("2 - Para marcar P (Porta-Aviões)");
+		System.out.println("3 - Para marcar A (Água)");
+		System.out.println("digite o que você quer marcar: ");
+		marca = scanner.nextInt();
+		
+		this.tabuleiroAtaque.getTabuleiroJogador()[linha][coluna] = marca;
+	}
 
 	public void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao){
         Scanner scanner = new Scanner(System.in);
@@ -149,6 +172,30 @@ public class Jogador {
 
     	}
     }
+    
+    public boolean verificaMorte(Jogador jogador) {
+    	if(jogador.getVida() > 0) {
+    		return true;
+    	}else {
+    		return false;
+    	}
+    }
+    
+    public void trocandoDeTurno(Jogador jogador1, Jogador jogador2) {
+    	while(jogador1.getVida() > 0 || jogador2.getVida() > 0) {
+    		jogador1.disparo(jogador2);
+    		if(verificaMorte(jogador2)) {
+    			jogador1.marcarNaGrelhaDeAtaque();
+    			jogador2.disparo(jogador1);
+        		verificaMorte(jogador1);
+        		jogador2.marcarNaGrelhaDeAtaque();
+    		}else {
+    			break;
+    		}
+    	}
+    }
+    
+    
 
 	public NavioDe1Cano getNavioDe1Cano() {
 		return navioDe1Cano;

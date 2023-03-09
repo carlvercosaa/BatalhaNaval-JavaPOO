@@ -1,6 +1,6 @@
 package tabuleiro;
 
-public class Tabuleiro {
+public abstract class Tabuleiro {
     private int[][] tabuleiroJogador = new int[10][10];
     
     public Tabuleiro() {
