@@ -158,6 +158,9 @@ public class TabuleiroDeDefesa extends Tabuleiro {
         	for(int c = 0; c < tamanho; c++){
                 if(super.getTabuleiroJogador()[linha][coluna+c] == -1){
                     contador += 1;
+                } else {
+                	System.out.println("coordenadas não é válida para essa posição!");
+                		return; //pensar em um jeito de rodar novamente o método o método para pedir plotagem
                 }
             }
         }
