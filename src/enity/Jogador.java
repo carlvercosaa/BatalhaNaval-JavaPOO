@@ -17,8 +17,8 @@ public class Jogador {
     private PortaAvioes portaAvioes;
     private int numero;
     private int vida = 25;
-
-    
+	
+	    
     
     public Jogador(int numero){
     	this.tabuleiroAtaque = new TabuleiroDeAtaque();
@@ -102,7 +102,12 @@ public class Jogador {
             System.out.print("digite a linha: ");
             linha = scanner.nextInt();
             
-            this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+            try {
+            	this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+            }
+            catch (RuntimeException e) {
+				System.out.println(e.getMessage());
+			}
             
             this.tabuleiroDefesa.mostraGrelhaDeDefesa();
             
@@ -122,14 +127,24 @@ public class Jogador {
                 direcao = scanner.next().toUpperCase();
                 
                 if(direcao.equals("BAIXO")) {        
-                	this.tabuleiroDefesa.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
+                	try {
+                		this.tabuleiroDefesa.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                    	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
+					}
+                	catch (RuntimeException e) {
+                		System.out.println(e.getMessage());
+					}
 
                 }
                 
                 else if(direcao.equals("CIMA")) {    
-                	this.tabuleiroDefesa.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
+                	try {
+                		this.tabuleiroDefesa.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                    	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
+					} 
+                	catch (RuntimeException e) {
+						System.out.println(e.getMessage());
+					}
                 }
             }
             else if(eixo.equals("HORIZONTAL")){
@@ -144,12 +159,24 @@ public class Jogador {
                 direcao = scanner.next().toUpperCase();
                 
                 if(direcao.equals("DIREITA")) {        
-                	this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
+                	try {
+                		this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                    	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
+					} 
+                	catch (RuntimeException e) {
+						System.out.println(e.getMessage());
+					}
+                	
                 }
                 else if(direcao.equals("ESQUERDA")){
-                	this.tabuleiroDefesa.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
+                	try {
+                		this.tabuleiroDefesa.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                    	this.tabuleiroDefesa.mostraGrelhaDeDefesa();
+					} 
+                	catch (RuntimeException e) {
+						System.out.println(e.getMessage());
+					}
+                	
                 }
             }
             

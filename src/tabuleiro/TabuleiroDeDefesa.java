@@ -51,40 +51,44 @@ public class TabuleiroDeDefesa extends Tabuleiro {
                 }
             }
         }
-        if(contador == tamanho && tamanho == 1){
-            for(int c = 0; c < tamanho; c++){
-            	super.getTabuleiroJogador()[linha+c][coluna] = 1;
-            }
-        }
-        else if(contador == tamanho && tamanho == 2){
-            for(int c = 0; c < tamanho; c++){
-            	super.getTabuleiroJogador()[linha+c][coluna] = 2;
-            }
-    	}
-    	else if(contador == tamanho && tamanho == 3){
-            for(int c = 0; c < tamanho; c++){
-            	super.getTabuleiroJogador()[linha+c][coluna] = 3;
-            }
-    	}
-    	else if(contador == tamanho && tamanho == 4){
-            for(int c = 0; c < tamanho; c++){
-            	super.getTabuleiroJogador()[linha+c][coluna] = 4;
-            }
-    	}
-    	else if(contador == tamanho && tamanho == 5){
-            for(int c = 0; c < 3; c++){
-            	super.getTabuleiroJogador()[linha+c][coluna] = 5;
-                if(c == 2) {
-                	super.getTabuleiroJogador()[linha+c][coluna-1] = 5;
-                	super.getTabuleiroJogador()[linha+c][coluna+1] = 5;
+        
+        
+        	if(contador == tamanho && tamanho == 1){
+                for(int c = 0; c < tamanho; c++){
+                	super.getTabuleiroJogador()[linha+c][coluna] = 1;
                 }
             }
-    	}
-    }
+            else if(contador == tamanho && tamanho == 2){
+                for(int c = 0; c < tamanho; c++){
+                	super.getTabuleiroJogador()[linha+c][coluna] = 2;
+                }
+        	}
+        	else if(contador == tamanho && tamanho == 3){
+                for(int c = 0; c < tamanho; c++){
+                	super.getTabuleiroJogador()[linha+c][coluna] = 3;
+                }
+        	}
+        	else if(contador == tamanho && tamanho == 4){
+                for(int c = 0; c < tamanho; c++){
+                	super.getTabuleiroJogador()[linha+c][coluna] = 4;
+                }
+        	}
+        	else if(contador == tamanho && tamanho == 5){
+                for(int c = 0; c < 3; c++){
+                	super.getTabuleiroJogador()[linha+c][coluna] = 5;
+                    if(c == 2) {
+                    	super.getTabuleiroJogador()[linha+c][coluna-1] = 5;
+                    	super.getTabuleiroJogador()[linha+c][coluna+1] = 5;
+                    }
+                }
+        	}
+        	else{
+        		throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+        	}
+        }
     
     public void verificarEPlotarVerticalParaCima(int tamanho, int linha, int coluna) {
     	int contador = 0;
-    	
     	if(tamanho == 5) {
     		for(int c = 0; c < 3; c++){
                 if(super.getTabuleiroJogador()[linha-c][coluna] == -1){
@@ -106,36 +110,39 @@ public class TabuleiroDeDefesa extends Tabuleiro {
                 }
             }
         }
-    	if(contador == tamanho && tamanho == 1){
-            for(int c = 0; c < tamanho; c++){
-            	super.getTabuleiroJogador()[linha-c][coluna] = 1;
-            }
-        }
-    	else if(contador == tamanho && tamanho == 2){
-            for(int c = 0; c < tamanho; c++){
-            	super.getTabuleiroJogador()[linha-c][coluna] = 2;
-            }
-    	}
-    	else if(contador == tamanho && tamanho == 3){
-            for(int c = 0; c < tamanho; c++){
-            	super.getTabuleiroJogador()[linha-c][coluna] = 3;
-            }
-    	}
-    	else if(contador == tamanho && tamanho == 4){
-            for(int c = 0; c < tamanho; c++){
-            	super.getTabuleiroJogador()[linha-c][coluna] = 4;
-            }
-    	}
-    	else if(contador == tamanho && tamanho == 5){
-            for(int c = 0; c < 3; c++){
-            	super.getTabuleiroJogador()[linha-c][coluna] = 5;
-                if(c == 2) {
-                	super.getTabuleiroJogador()[linha-c][coluna+1] = 5;
-                	super.getTabuleiroJogador()[linha-c][coluna-1] = 5;
+    		if(contador == tamanho && tamanho == 1){
+                for(int c = 0; c < tamanho; c++){
+                	super.getTabuleiroJogador()[linha-c][coluna] = 1;
                 }
             }
-    	}
-    }
+        	else if(contador == tamanho && tamanho == 2){
+                for(int c = 0; c < tamanho; c++){
+                	super.getTabuleiroJogador()[linha-c][coluna] = 2;
+                }
+        	}
+        	else if(contador == tamanho && tamanho == 3){
+                for(int c = 0; c < tamanho; c++){
+                	super.getTabuleiroJogador()[linha-c][coluna] = 3;
+                }
+        	}
+        	else if(contador == tamanho && tamanho == 4){
+                for(int c = 0; c < tamanho; c++){
+                	super.getTabuleiroJogador()[linha-c][coluna] = 4;
+                }
+        	}
+        	else if(contador == tamanho && tamanho == 5){
+                for(int c = 0; c < 3; c++){
+                	super.getTabuleiroJogador()[linha-c][coluna] = 5;
+                    if(c == 2) {
+                    	super.getTabuleiroJogador()[linha-c][coluna+1] = 5;
+                    	super.getTabuleiroJogador()[linha-c][coluna-1] = 5;
+                    }
+                }
+        	}
+        	else{
+        		throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+        	}
+		}
     
     public void verificarEPlotarHorizontalParaDireita(int tamanho, int linha, int coluna) {
     	int contador = 0;
@@ -154,15 +161,15 @@ public class TabuleiroDeDefesa extends Tabuleiro {
                 	}
                 }
     		}
-        }else {
-        	for(int c = 0; c < tamanho; c++){
-                if(super.getTabuleiroJogador()[linha][coluna+c] == -1){
-                    contador += 1;
-                } else {
-                	System.out.println("coordenadas não é válida para essa posição!");
-                		return; //pensar em um jeito de rodar novamente o método o método para pedir plotagem
-                }
-            }
+        }
+    	else{
+    		try {
+    			contador = calculandoContador(tamanho, linha, coluna, contador);
+			}
+    		catch (RuntimeException e) {
+				System.out.println(e.getMessage());
+				return;
+    		}
         }
     	if(contador == tamanho && tamanho == 1){
             for(int c = 0; c < tamanho; c++){
@@ -192,6 +199,9 @@ public class TabuleiroDeDefesa extends Tabuleiro {
                 	super.getTabuleiroJogador()[linha+1][coluna+c] = 5;
                 }
             }
+    	}
+    	else{
+    		throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
     	}
     }
  
@@ -248,6 +258,9 @@ public class TabuleiroDeDefesa extends Tabuleiro {
                 }
             }
     	}
+    	else{
+    		throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+    	}
     }
     
     public String verificaDisparo(int linha, int coluna, Jogador adversario) {
@@ -282,5 +295,18 @@ public class TabuleiroDeDefesa extends Tabuleiro {
     	else {
     		return null;
     	}
+    }
+
+    public int calculandoContador(int tamanho, int linha, int coluna, int contador) {
+    	for(int c = 0; c < tamanho; c++){
+            if(super.getTabuleiroJogador()[linha][coluna+c] == -1){
+                contador += 1;
+            }
+            else
+            {
+            	throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+            }
+        }
+    	return contador;
     }
 }
