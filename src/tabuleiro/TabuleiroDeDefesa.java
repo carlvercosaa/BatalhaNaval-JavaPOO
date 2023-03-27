@@ -2,11 +2,11 @@ package tabuleiro;
 
 import enity.Jogador;
 
-public class TabuleiroDeDefesa extends Tabuleiro {
+public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
 	
 	
 
-	public void mostraGrelhaDeDefesa(){
+	public void mostraGrelha(){
         System.out.println("\t0 \t1 \t2 \t3 \t4 \t5 \t6 \t7 \t8 \t9");
         System.out.println();
         
@@ -110,39 +110,39 @@ public class TabuleiroDeDefesa extends Tabuleiro {
                 }
             }
         }
-    		if(contador == tamanho && tamanho == 1){
-                for(int c = 0; c < tamanho; c++){
-                	super.getTabuleiroJogador()[linha-c][coluna] = 1;
+    	if(contador == tamanho && tamanho == 1){
+    		for(int c = 0; c < tamanho; c++){
+    			super.getTabuleiroJogador()[linha-c][coluna] = 1;
+        	}
+        }
+        else if(contador == tamanho && tamanho == 2){
+        	for(int c = 0; c < tamanho; c++){
+        		super.getTabuleiroJogador()[linha-c][coluna] = 2;
+            }
+        }
+        else if(contador == tamanho && tamanho == 3){
+        	for(int c = 0; c < tamanho; c++){
+        		super.getTabuleiroJogador()[linha-c][coluna] = 3;
+            }
+        }
+        else if(contador == tamanho && tamanho == 4){
+        	for(int c = 0; c < tamanho; c++){
+        		super.getTabuleiroJogador()[linha-c][coluna] = 4;
+            }
+        }
+     	else if(contador == tamanho && tamanho == 5){
+     		for(int c = 0; c < 3; c++){
+     			super.getTabuleiroJogador()[linha-c][coluna] = 5;
+                if(c == 2) {
+                	super.getTabuleiroJogador()[linha-c][coluna+1] = 5;
+                	super.getTabuleiroJogador()[linha-c][coluna-1] = 5;
                 }
             }
-        	else if(contador == tamanho && tamanho == 2){
-                for(int c = 0; c < tamanho; c++){
-                	super.getTabuleiroJogador()[linha-c][coluna] = 2;
-                }
-        	}
-        	else if(contador == tamanho && tamanho == 3){
-                for(int c = 0; c < tamanho; c++){
-                	super.getTabuleiroJogador()[linha-c][coluna] = 3;
-                }
-        	}
-        	else if(contador == tamanho && tamanho == 4){
-                for(int c = 0; c < tamanho; c++){
-                	super.getTabuleiroJogador()[linha-c][coluna] = 4;
-                }
-        	}
-        	else if(contador == tamanho && tamanho == 5){
-                for(int c = 0; c < 3; c++){
-                	super.getTabuleiroJogador()[linha-c][coluna] = 5;
-                    if(c == 2) {
-                    	super.getTabuleiroJogador()[linha-c][coluna+1] = 5;
-                    	super.getTabuleiroJogador()[linha-c][coluna-1] = 5;
-                    }
-                }
-        	}
-        	else{
-        		throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
-        	}
-		}
+     	}
+        else{
+        	throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+        }
+	}
     
     public void verificarEPlotarHorizontalParaDireita(int tamanho, int linha, int coluna) {
     	int contador = 0;
