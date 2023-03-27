@@ -1,6 +1,9 @@
 package enity;
 
 import java.util.Scanner;
+
+import ExceptionsDaBatalha.PlotagemException;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -84,7 +87,7 @@ public class Jogador {
 		this.tabuleiroAtaque.getTabuleiroJogador()[linha][coluna] = marca;
 	}
 
-	public void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao){
+	public void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao) throws PlotagemException{
         Scanner scanner = new Scanner(System.in);
         
         int linha;
@@ -105,7 +108,7 @@ public class Jogador {
             try {
             	this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
             }
-            catch (RuntimeException e) {
+            catch (PlotagemException e) {
 				System.out.println(e.getMessage());
 			}
             
@@ -131,7 +134,7 @@ public class Jogador {
                 		this.tabuleiroDefesa.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
                     	this.tabuleiroDefesa.mostraGrelha();
 					}
-                	catch (RuntimeException e) {
+                	catch (PlotagemException e) {
                 		System.out.println(e.getMessage());
 					}
 
@@ -142,7 +145,7 @@ public class Jogador {
                 		this.tabuleiroDefesa.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
                     	this.tabuleiroDefesa.mostraGrelha();
 					} 
-                	catch (RuntimeException e) {
+                	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
 					}
                 }
@@ -163,7 +166,7 @@ public class Jogador {
                 		this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
                     	this.tabuleiroDefesa.mostraGrelha();
 					} 
-                	catch (RuntimeException e) {
+                	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
 					}
                 	
@@ -173,7 +176,7 @@ public class Jogador {
                 		this.tabuleiroDefesa.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
                     	this.tabuleiroDefesa.mostraGrelha();
 					} 
-                	catch (RuntimeException e) {
+                	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
 					}
                 	
@@ -183,10 +186,11 @@ public class Jogador {
         }
        }
     
-    public void plotandoTodosNavios() {
+    public void plotandoTodosNavios() throws PlotagemException{
     	List<Embarcacao> embarcacoes = Arrays.asList(getNavioDe1Cano(), getNavioDe2Canos(), getNavioDe3Canos(), getNavioDe4Canos(), getPortaAvioes());
     	
     	Scanner scanner = new Scanner(System.in);
+    	System.out.println("Jogador " + this.numero + "plotando navios...");
 
     	for(int i = 0; i < embarcacoes.size(); i++) {
     		if(i == 4) {

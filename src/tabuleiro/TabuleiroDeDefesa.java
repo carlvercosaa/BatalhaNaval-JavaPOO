@@ -1,5 +1,6 @@
 package tabuleiro;
 
+import ExceptionsDaBatalha.PlotagemException;
 import enity.Jogador;
 
 public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
@@ -27,7 +28,7 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
 
 	}
 	
-	public void verificarEPlotarVerticalParaBaixo(int tamanho, int  linha, int  coluna){
+	public void verificarEPlotarVerticalParaBaixo(int tamanho, int  linha, int  coluna) throws PlotagemException{
         int contador = 0;
         
         if(tamanho == 5) {
@@ -83,11 +84,11 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                 }
         	}
         	else{
-        		throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+        		throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
         	}
         }
     
-    public void verificarEPlotarVerticalParaCima(int tamanho, int linha, int coluna) {
+    public void verificarEPlotarVerticalParaCima(int tamanho, int linha, int coluna) throws PlotagemException{
     	int contador = 0;
     	if(tamanho == 5) {
     		for(int c = 0; c < 3; c++){
@@ -140,11 +141,11 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
             }
      	}
         else{
-        	throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+        	throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
         }
 	}
     
-    public void verificarEPlotarHorizontalParaDireita(int tamanho, int linha, int coluna) {
+    public void verificarEPlotarHorizontalParaDireita(int tamanho, int linha, int coluna) throws PlotagemException{
     	int contador = 0;
     	
     	if(tamanho == 5) {
@@ -201,11 +202,11 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
             }
     	}
     	else{
-    		throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+    		throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
     	}
     }
  
-    public void verificarEPlotarHorizontalParaEsquerda(int tamanho, int linha, int coluna) {
+    public void verificarEPlotarHorizontalParaEsquerda(int tamanho, int linha, int coluna) throws PlotagemException{
     	int contador = 0;
     	
     	if(tamanho == 5) {
@@ -259,7 +260,7 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
             }
     	}
     	else{
-    		throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+    		throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
     	}
     }
     
@@ -297,14 +298,14 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
     	}
     }
 
-    public int calculandoContador(int tamanho, int linha, int coluna, int contador) {
+    public int calculandoContador(int tamanho, int linha, int coluna, int contador) throws PlotagemException{
     	for(int c = 0; c < tamanho; c++){
             if(super.getTabuleiroJogador()[linha][coluna+c] == -1){
                 contador += 1;
             }
             else
             {
-            	throw new RuntimeException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
+            	throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
             }
         }
     	return contador;
