@@ -190,7 +190,7 @@ public class Jogador {
     	List<Embarcacao> embarcacoes = Arrays.asList(getNavioDe1Cano(), getNavioDe2Canos(), getNavioDe3Canos(), getNavioDe4Canos(), getPortaAvioes());
     	
     	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Jogador " + this.numero + "plotando navios...");
+    	System.out.println("Jogador " + this.numero + " plotando navios...");
 
     	for(int i = 0; i < embarcacoes.size(); i++) {
     		if(i == 4) {

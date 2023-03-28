@@ -45,12 +45,18 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                 	}
                 }
     		}
+    		if(contador != tamanho) {
+    			throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
+    		}
         }else {
         	for(int c = 0; c < tamanho; c++){
                 if(super.getTabuleiroJogador()[linha+c][coluna] == -1){
                     contador += 1;
                 }
             }
+        	if(contador != tamanho) {
+        		throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
+        	}
         }
         
         
@@ -83,9 +89,6 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                     }
                 }
         	}
-        	else{
-        		throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
-        	}
         }
     
     public void verificarEPlotarVerticalParaCima(int tamanho, int linha, int coluna) throws PlotagemException{
@@ -104,12 +107,18 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                 	}
                 }
     		}
+    		if(contador != tamanho) {
+    			throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
+    		}
         }else {
         	for(int c = 0; c < tamanho; c++){
                 if(super.getTabuleiroJogador()[linha-c][coluna] == -1){
                     contador += 1;
                 }
             }
+        	if(contador != tamanho) {
+    			throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
+    		}
         }
     	if(contador == tamanho && tamanho == 1){
     		for(int c = 0; c < tamanho; c++){
@@ -140,9 +149,6 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                 }
             }
      	}
-        else{
-        	throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
-        }
 	}
     
     public void verificarEPlotarHorizontalParaDireita(int tamanho, int linha, int coluna) throws PlotagemException{
@@ -162,16 +168,21 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                 	}
                 }
     		}
-        }
-    	else{
-    		try {
-    			contador = calculandoContador(tamanho, linha, coluna, contador);
-			}
-    		catch (RuntimeException e) {
-				System.out.println(e.getMessage());
-				return;
+    		if(contador != tamanho) {
+    			throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
     		}
         }
+    	else {
+        	for(int c = 0; c < tamanho; c++){
+                if(super.getTabuleiroJogador()[linha][coluna+c] == -1){
+                    contador += 1;
+                }
+        	}
+        	if(contador != tamanho) {
+    			throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
+    		}
+        }
+
     	if(contador == tamanho && tamanho == 1){
             for(int c = 0; c < tamanho; c++){
             	super.getTabuleiroJogador()[linha][coluna+c] = 1;
@@ -201,9 +212,6 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                 }
             }
     	}
-    	else{
-    		throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
-    	}
     }
  
     public void verificarEPlotarHorizontalParaEsquerda(int tamanho, int linha, int coluna) throws PlotagemException{
@@ -223,12 +231,18 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                 	}
                 }
     		}
+    		if(contador != tamanho) {
+    			throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
+    		}
         }else {
         	for(int c = 0; c < tamanho; c++){
                 if(super.getTabuleiroJogador()[linha][coluna-c] == -1){
                     contador += 1;
                 }
         	}
+        	if(contador != tamanho) {
+    			throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
+    		}
         }
     	if(contador == tamanho && tamanho ==1){
             for(int c = 0; c < tamanho; c++){
@@ -258,9 +272,6 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
                 	super.getTabuleiroJogador()[linha+1][coluna-c] = 5;
                 }
             }
-    	}
-    	else{
-    		throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
     	}
     }
     
@@ -296,18 +307,5 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
     	else {
     		return null;
     	}
-    }
-
-    public int calculandoContador(int tamanho, int linha, int coluna, int contador) throws PlotagemException{
-    	for(int c = 0; c < tamanho; c++){
-            if(super.getTabuleiroJogador()[linha][coluna+c] == -1){
-                contador += 1;
-            }
-            else
-            {
-            	throw new PlotagemException("Nao e possivel plotar nessa direcao(ja existem navios presentes).");
-            }
-        }
-    	return contador;
     }
 }
