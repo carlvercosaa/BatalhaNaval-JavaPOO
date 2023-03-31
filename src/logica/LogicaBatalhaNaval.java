@@ -4,13 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import ExceptionsDaBatalha.EixoInvalidoException;
+import ExceptionsDaBatalha.ForaDoIndiceException;
 import ExceptionsDaBatalha.PlotagemException;
 import enity.Embarcacao;
 import enity.Jogador;
 
 public abstract class LogicaBatalhaNaval {
 	
-	public static void inicializaJogo() throws PlotagemException {
+	public static void inicializaJogo() throws PlotagemException, ForaDoIndiceException {
 		Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("--------------");
@@ -56,25 +58,25 @@ public abstract class LogicaBatalhaNaval {
 		}
 	}
 	
-	public static void plotandoTodosNavios(Jogador jogador) throws PlotagemException {
+	public static void plotandoTodosNavios(Jogador jogador) throws PlotagemException, ForaDoIndiceException {
     	List<Embarcacao> embarcacoes = Arrays.asList(jogador.getNavioDe1Cano(), jogador.getNavioDe2Canos(), jogador.getNavioDe3Canos(), jogador.getNavioDe4Canos(), jogador.getPortaAvioes());
     	int y = 4;
     	for(int i = 0; i < embarcacoes.size(); i++) {
-    		jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
+    		Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
     		for(int x = 0; x < y; x++) {
     			System.out.println(y);
     			System.out.printf("plotando navio de %d cano \n", i+1);
-    			jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
+    			Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
     		}
     		y = y - 1;
     		if(y == 0) {
-    			jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(4));
+    			Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(4),jogador);
     		}
 
     	}
     }
 	
-	public static void plotandoTodosNaviosCustom(Jogador jogador) throws PlotagemException{
+	public static void plotandoTodosNaviosCustom(Jogador jogador) throws PlotagemException, ForaDoIndiceException{
     	List<Embarcacao> embarcacoes = Arrays.asList(jogador.getNavioDe1Cano(), jogador.getNavioDe2Canos(), jogador.getNavioDe3Canos(), jogador.getNavioDe4Canos(), jogador.getPortaAvioes());
     	
     	Scanner scanner = new Scanner(System.in);
@@ -84,16 +86,28 @@ public abstract class LogicaBatalhaNaval {
     		if(i == 4) {
     			System.out.println("Digite a quantidade de Porta-Aviões: ");
     			int quantidade = scanner.nextInt();
+    			jogador.setVida(jogador.getVida() + ((i+1) * quantidade));
     			for(int x = 0; x < quantidade; x++) {
     	    		System.out.printf("plotando Porta-Aviões \n");
-    	    		jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
+    	    		try {
+						Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
+					} catch (PlotagemException | ForaDoIndiceException e) {
+						e.getMessage();
+						Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
+					}
     	    	}
     		}else {
     			System.out.printf("Digite a quantidade de navios de %d canos: ", i+1);
     	        int quantidade = scanner.nextInt();
+    	        jogador.setVida(jogador.getVida() + ((i+1) * quantidade));
     	        for(int x = 0; x < quantidade; x++) {
     	    		System.out.printf("plotando navio de %d canos \n", i+1);
-    	    		jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
+    	    		try {
+						Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
+					} catch (PlotagemException | ForaDoIndiceException e) {
+						e.getMessage();
+						Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
+					}
     	        }
     		}
     	}
@@ -112,6 +126,41 @@ public abstract class LogicaBatalhaNaval {
     		}else {
     			break;
     		}
+    	}
+    }
+    
+    public static int perguntarLinha() throws ForaDoIndiceException {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.print("Digite a linha: ");
+        int linha = scanner.nextInt();
+        if(linha < 0 || linha > 9) {
+        	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
+        }
+        return linha;
+    }
+    
+    public static int perguntarColuna() throws ForaDoIndiceException {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.print("Digite a coluna: ");
+        int coluna = scanner.nextInt();
+        if(coluna < 0 || coluna > 9) {
+        	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
+        }
+        
+        return coluna;
+    }
+    
+    public static String perguntarEixo() throws EixoInvalidoException {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.println("Escolha o eixo que a embarcação será plotada(VERTICAL ou HORIZONTAL). : " );
+    	String eixo = scanner.next();
+    	if(eixo.equals("VERTICAL") || eixo.equals("HORIZONTAL")) {
+    		return eixo;
+    	}else {
+    		throw new EixoInvalidoException("Eixo inexistente!");
     	}
     }
 }

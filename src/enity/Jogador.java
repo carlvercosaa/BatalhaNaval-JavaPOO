@@ -2,6 +2,7 @@ package enity;
 
 import java.util.Scanner;
 
+import ExceptionsDaBatalha.ForaDoIndiceException;
 import ExceptionsDaBatalha.PlotagemException;
 
 import java.util.Arrays;
@@ -65,7 +66,7 @@ public class Jogador {
 		return true;
     }
 
-	public void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao) throws PlotagemException{
+	public static void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao,Jogador jogador) throws PlotagemException, ForaDoIndiceException{
         Scanner scanner = new Scanner(System.in);
         
         int linha;
@@ -73,9 +74,9 @@ public class Jogador {
         String direcao;
         
         if(nomeDaEmbarcacao.getNomeDaEmbarcacao()==("Navio_De_1_Cano")){
-        	this.tabuleiroDefesa.mostraGrelha();
+        	jogador.tabuleiroDefesa.mostraGrelha();
             
-        	System.out.println("Jogador: " + this.numero);
+        	System.out.println("Jogador: " + jogador.numero);
         	
         	System.out.print("digite a coluna: ");
             coluna = scanner.nextInt();
@@ -84,33 +85,40 @@ public class Jogador {
             linha = scanner.nextInt();
             
             try {
-            	this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+            	jogador.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
             }
             catch (PlotagemException e) {
 				System.out.println(e.getMessage());
+				Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
 			}
             
-            this.tabuleiroDefesa.mostraGrelha();
+            jogador.tabuleiroDefesa.mostraGrelha();
             
         }else{
             System.out.println("Escolha o eixo que a embarcação será plotada(VERTICAL ou HORIZONTAL). : " );
             String eixo = scanner.next().toUpperCase();
             
             if(eixo.equals("VERTICAL")){
-            	this.tabuleiroDefesa.mostraGrelha(); 
+            	jogador.tabuleiroDefesa.mostraGrelha();
                 System.out.print("Digite a coluna: ");
                 coluna = scanner.nextInt();
+                if(coluna < 0 || coluna > 9) {
+                	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
+                }
                 
                 System.out.print("Digite a linha: ");
                 linha = scanner.nextInt();
+                if(linha < 0 || linha > 9) {
+                	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
+                }
                 
                 System.out.println("Escolha a direcao que a embarcação será plotada(BAIXO ou CIMA). : " );
                 direcao = scanner.next().toUpperCase();
                 
                 if(direcao.equals("BAIXO")) {        
                 	try {
-                		this.tabuleiroDefesa.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                    	this.tabuleiroDefesa.mostraGrelha();
+                		jogador.tabuleiroDefesa.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                		jogador.tabuleiroDefesa.mostraGrelha();
 					}
                 	catch (PlotagemException e) {
                 		System.out.println(e.getMessage());
@@ -120,8 +128,8 @@ public class Jogador {
                 
                 else if(direcao.equals("CIMA")) {    
                 	try {
-                		this.tabuleiroDefesa.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                    	this.tabuleiroDefesa.mostraGrelha();
+                		jogador.tabuleiroDefesa.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                		jogador.tabuleiroDefesa.mostraGrelha();
 					} 
                 	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
@@ -129,20 +137,26 @@ public class Jogador {
                 }
             }
             else if(eixo.equals("HORIZONTAL")){
-            	this.tabuleiroDefesa.mostraGrelha(); 
+            	jogador.tabuleiroDefesa.mostraGrelha(); 
                 System.out.print("Digite a coluna: ");
                 coluna = scanner.nextInt();
+                if(coluna < 0 || coluna > 9) {
+                	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
+                }
                 
                 System.out.print("Digite a linha: ");
                 linha = scanner.nextInt();
+                if(linha < 0 || linha > 9) {
+                	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
+                }
                 
                 System.out.println("Escolha a direcao em que a embarcação será plotada(DIREITA ou ESQUERDA). : " );
                 direcao = scanner.next().toUpperCase();
                 
                 if(direcao.equals("DIREITA")) {        
                 	try {
-                		this.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                    	this.tabuleiroDefesa.mostraGrelha();
+                		jogador.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                		jogador.tabuleiroDefesa.mostraGrelha();
 					} 
                 	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
@@ -151,8 +165,8 @@ public class Jogador {
                 }
                 else if(direcao.equals("ESQUERDA")){
                 	try {
-                		this.tabuleiroDefesa.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                    	this.tabuleiroDefesa.mostraGrelha();
+                		jogador.tabuleiroDefesa.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                		jogador.tabuleiroDefesa.mostraGrelha();
 					} 
                 	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
