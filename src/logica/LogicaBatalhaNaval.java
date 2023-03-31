@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import ExceptionsDaBatalha.DirecaoInvalidaException;
 import ExceptionsDaBatalha.EixoInvalidoException;
 import ExceptionsDaBatalha.ForaDoIndiceException;
 import ExceptionsDaBatalha.PlotagemException;
@@ -91,7 +92,7 @@ public abstract class LogicaBatalhaNaval {
     	    		System.out.printf("plotando Porta-Aviões \n");
     	    		try {
 						Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
-					} catch (PlotagemException | ForaDoIndiceException e) {
+					} catch (PlotagemException e) {
 						e.getMessage();
 						Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
 					}
@@ -104,7 +105,7 @@ public abstract class LogicaBatalhaNaval {
     	    		System.out.printf("plotando navio de %d canos \n", i+1);
     	    		try {
 						Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
-					} catch (PlotagemException | ForaDoIndiceException e) {
+					} catch (PlotagemException e) {
 						e.getMessage();
 						Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
 					}
@@ -135,7 +136,7 @@ public abstract class LogicaBatalhaNaval {
     	System.out.print("Digite a linha: ");
         int linha = scanner.nextInt();
         if(linha < 0 || linha > 9) {
-        	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
+        	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!... tente plotar novamente.");
         }
         return linha;
     }
@@ -146,7 +147,7 @@ public abstract class LogicaBatalhaNaval {
     	System.out.print("Digite a coluna: ");
         int coluna = scanner.nextInt();
         if(coluna < 0 || coluna > 9) {
-        	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
+        	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!... tente plotar novamente.");
         }
         
         return coluna;
@@ -157,10 +158,37 @@ public abstract class LogicaBatalhaNaval {
     	
     	System.out.println("Escolha o eixo que a embarcação será plotada(VERTICAL ou HORIZONTAL). : " );
     	String eixo = scanner.next();
+    	eixo = eixo.toUpperCase();
     	if(eixo.equals("VERTICAL") || eixo.equals("HORIZONTAL")) {
     		return eixo;
     	}else {
-    		throw new EixoInvalidoException("Eixo inexistente!");
+    		throw new EixoInvalidoException("Eixo inexistente!... tente plotar novamente.");
+    	}
+    }
+    
+    public static String perguntarDirecao() throws DirecaoInvalidaException {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.println("Escolha a direcao que a embarcação será plotada(BAIXO ou CIMA). : " );
+    	String direcao = scanner.next();
+    	direcao = direcao.toUpperCase();
+    	if(direcao.equals("BAIXO") || direcao.equals("CIMA")) {
+    		return direcao;
+    	}else {
+    		throw new DirecaoInvalidaException("Direção inexistente!... tente plotar novamente.");
+    	}
+    }
+    
+    public static String perguntarDirecaoB() throws DirecaoInvalidaException {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.println("Escolha a direcao em que a embarcação será plotada(DIREITA ou ESQUERDA). : " );
+    	String direcao = scanner.next();
+    	direcao = direcao.toUpperCase();
+    	if(direcao.equals("DIREITA") || direcao.equals("ESQUERDA")) {
+    		return direcao;
+    	}else {
+    		throw new DirecaoInvalidaException("Direção inexistente!... tente plotar novamente.");
     	}
     }
 }

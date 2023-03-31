@@ -2,8 +2,11 @@ package enity;
 
 import java.util.Scanner;
 
+import ExceptionsDaBatalha.DirecaoInvalidaException;
+import ExceptionsDaBatalha.EixoInvalidoException;
 import ExceptionsDaBatalha.ForaDoIndiceException;
 import ExceptionsDaBatalha.PlotagemException;
+import logica.LogicaBatalhaNaval;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +15,9 @@ import tabuleiro.TabuleiroDeAtaque;
 import tabuleiro.TabuleiroDeDefesa;
 
 public class Jogador {
-    private TabuleiroDeAtaque tabuleiroAtaque;
+    private static Object eixo;
+	private static String direcao;
+	private TabuleiroDeAtaque tabuleiroAtaque;
     private TabuleiroDeDefesa tabuleiroDefesa;
     private NavioDe1Cano navioDe1Cano;
     private NavioDe2Canos navioDe2Canos;
@@ -37,10 +42,9 @@ public class Jogador {
 
 
 	public boolean disparo(Jogador adversario) {
-		Scanner scanner = new Scanner(System.in);
 		
-		int coluna;
-		int linha;
+		int coluna = 0;
+		int linha = 0;
 		String[] posicoes = new String[3];
 		
 		for(int i = 0; i < 3; i++) {
@@ -48,9 +52,19 @@ public class Jogador {
 			System.out.println("Jogador" + this.numero);
 			System.out.println("Dispare contra o inimigo");
 			System.out.print("digite a coluna: ");
-			coluna = scanner.nextInt();
+			try {
+				coluna = LogicaBatalhaNaval.perguntarColuna();
+			} catch (ForaDoIndiceException e1) {
+				e1.getMessage();
+				disparo(adversario);
+			}
 			System.out.print("digite a linha: ");
-			linha = scanner.nextInt();
+			try {
+				linha = LogicaBatalhaNaval.perguntarLinha();
+			} catch (ForaDoIndiceException e) {
+				e.getMessage();
+				disparo(adversario);
+			}
 			
 			getTabuleiroAtaque().marcaNaGrelha(linha, coluna, adversario);
 			
@@ -66,23 +80,28 @@ public class Jogador {
 		return true;
     }
 
-	public static void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao,Jogador jogador) throws PlotagemException, ForaDoIndiceException{
-        Scanner scanner = new Scanner(System.in);
+	public static void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao,Jogador jogador) throws PlotagemException{
         
-        int linha;
-        int coluna;
-        String direcao;
+        int linha = 0;
+        int coluna = 0;
         
         if(nomeDaEmbarcacao.getNomeDaEmbarcacao()==("Navio_De_1_Cano")){
         	jogador.tabuleiroDefesa.mostraGrelha();
             
         	System.out.println("Jogador: " + jogador.numero);
-        	
-        	System.out.print("digite a coluna: ");
-            coluna = scanner.nextInt();
+        	try {
+        		coluna = LogicaBatalhaNaval.perguntarColuna();
+        	}catch(ForaDoIndiceException e){
+        		e.getMessage();
+        		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+        	}
             
-            System.out.print("digite a linha: ");
-            linha = scanner.nextInt();
+        	try {
+        		linha = LogicaBatalhaNaval.perguntarLinha();
+        	}catch(ForaDoIndiceException e) {
+        		e.getMessage();
+        		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+        	}
             
             try {
             	jogador.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
@@ -95,25 +114,35 @@ public class Jogador {
             jogador.tabuleiroDefesa.mostraGrelha();
             
         }else{
-            System.out.println("Escolha o eixo que a embarcação será plotada(VERTICAL ou HORIZONTAL). : " );
-            String eixo = scanner.next().toUpperCase();
+            try {
+				eixo = LogicaBatalhaNaval.perguntarEixo();
+			} catch (EixoInvalidoException e2) {
+				e2.getMessage();
+				Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+			}
             
-            if(eixo.equals("VERTICAL")){
+			if(eixo.equals("VERTICAL")) {
             	jogador.tabuleiroDefesa.mostraGrelha();
-                System.out.print("Digite a coluna: ");
-                coluna = scanner.nextInt();
-                if(coluna < 0 || coluna > 9) {
-                	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
-                }
+
+            	try {
+            		coluna = LogicaBatalhaNaval.perguntarColuna();
+            	}catch(ForaDoIndiceException e){
+            		e.getMessage();
+            		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+            	}
                 
-                System.out.print("Digite a linha: ");
-                linha = scanner.nextInt();
-                if(linha < 0 || linha > 9) {
-                	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
-                }
-                
-                System.out.println("Escolha a direcao que a embarcação será plotada(BAIXO ou CIMA). : " );
-                direcao = scanner.next().toUpperCase();
+            	try {
+            		linha = LogicaBatalhaNaval.perguntarLinha();
+            	}catch(ForaDoIndiceException e) {
+            		e.getMessage();
+            		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+            	}
+
+                try {
+					direcao = LogicaBatalhaNaval.perguntarDirecao();
+				} catch (DirecaoInvalidaException e1) {
+					e1.getMessage();
+				}
                 
                 if(direcao.equals("BAIXO")) {        
                 	try {
@@ -122,6 +151,7 @@ public class Jogador {
 					}
                 	catch (PlotagemException e) {
                 		System.out.println(e.getMessage());
+                		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
 					}
 
                 }
@@ -133,25 +163,33 @@ public class Jogador {
 					} 
                 	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
+						Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
 					}
                 }
             }
             else if(eixo.equals("HORIZONTAL")){
             	jogador.tabuleiroDefesa.mostraGrelha(); 
-                System.out.print("Digite a coluna: ");
-                coluna = scanner.nextInt();
-                if(coluna < 0 || coluna > 9) {
-                	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
-                }
+
+            	try {
+            		coluna = LogicaBatalhaNaval.perguntarColuna();
+            	}catch(ForaDoIndiceException e){
+            		e.getMessage();
+            		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+            	}
                 
-                System.out.print("Digite a linha: ");
-                linha = scanner.nextInt();
-                if(linha < 0 || linha > 9) {
-                	throw new ForaDoIndiceException("Não é possivel plotar o navio nessa posição!.");
-                }
+            	try {
+            		linha = LogicaBatalhaNaval.perguntarLinha();
+            	}catch(ForaDoIndiceException e) {
+            		e.getMessage();
+            		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+            	}
                 
-                System.out.println("Escolha a direcao em que a embarcação será plotada(DIREITA ou ESQUERDA). : " );
-                direcao = scanner.next().toUpperCase();
+                try {
+                	direcao = LogicaBatalhaNaval.perguntarDirecaoB();
+				} catch (DirecaoInvalidaException e1) {
+					e1.getMessage();
+					Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+				}
                 
                 if(direcao.equals("DIREITA")) {        
                 	try {
@@ -160,6 +198,7 @@ public class Jogador {
 					} 
                 	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
+						Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
 					}
                 	
                 }
@@ -170,6 +209,7 @@ public class Jogador {
 					} 
                 	catch (PlotagemException e) {
 						System.out.println(e.getMessage());
+						Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
 					}
                 	
                 }
