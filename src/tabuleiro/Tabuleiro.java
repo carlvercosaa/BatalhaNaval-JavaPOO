@@ -20,7 +20,8 @@ public abstract class Tabuleiro {
     	this.tabuleiroJogador[linha][coluna] = -1;
     }
 
-    public int[][] getTabuleiroJogador() {
+
+	public int[][] getTabuleiroJogador() {
         return this.tabuleiroJogador;
     }
 

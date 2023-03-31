@@ -51,6 +51,8 @@ public class Jogador {
 			System.out.print("digite a linha: ");
 			linha = scanner.nextInt();
 			
+			getTabuleiroAtaque().marcaNaGrelha(linha, coluna, adversario);
+			
 			posicoes[i] = adversario.getTabuleiroDefesa().verificaDisparo(linha, coluna, adversario);
 			
 		}
@@ -62,30 +64,6 @@ public class Jogador {
 	
 		return true;
     }
-	
-	public void marcarNaGrelhaDeAtaque() {
-		Scanner scanner = new Scanner(System.in);
-		
-		int linha;
-		int coluna;
-		int marca;
-		
-		System.out.println("----------------------------");
-		System.out.println("Jogador" + this.numero);
-		System.out.println("Marque em sua 'Grelha de Ataque'");
-		System.out.print("digite a coluna: ");
-		coluna = scanner.nextInt();
-		System.out.print("digite a linha: ");
-		linha = scanner.nextInt();
-		System.out.println("----------------------------");
-		System.out.println("1 - Para marcar N (Navio)");
-		System.out.println("2 - Para marcar P (Porta-Aviões)");
-		System.out.println("3 - Para marcar A (Água)");
-		System.out.println("digite o que você quer marcar: ");
-		marca = scanner.nextInt();
-		
-		this.tabuleiroAtaque.getTabuleiroJogador()[linha][coluna] = marca;
-	}
 
 	public void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao) throws PlotagemException{
         Scanner scanner = new Scanner(System.in);
@@ -115,18 +93,18 @@ public class Jogador {
             this.tabuleiroDefesa.mostraGrelha();
             
         }else{
-            System.out.println("Escolha o eixo(vertical ou horizontal)" );
+            System.out.println("Escolha o eixo que a embarcação será plotada(VERTICAL ou HORIZONTAL). : " );
             String eixo = scanner.next().toUpperCase();
             
             if(eixo.equals("VERTICAL")){
             	this.tabuleiroDefesa.mostraGrelha(); 
-                System.out.print("digite a coluna: ");
+                System.out.print("Digite a coluna: ");
                 coluna = scanner.nextInt();
                 
-                System.out.print("digite a linha: ");
+                System.out.print("Digite a linha: ");
                 linha = scanner.nextInt();
                 
-                System.out.println("Escolha a direcao(BAIXO ou CIMA)" );
+                System.out.println("Escolha a direcao que a embarcação será plotada(BAIXO ou CIMA). : " );
                 direcao = scanner.next().toUpperCase();
                 
                 if(direcao.equals("BAIXO")) {        
@@ -152,13 +130,13 @@ public class Jogador {
             }
             else if(eixo.equals("HORIZONTAL")){
             	this.tabuleiroDefesa.mostraGrelha(); 
-                System.out.print("digite a coluna: ");
+                System.out.print("Digite a coluna: ");
                 coluna = scanner.nextInt();
                 
-                System.out.print("digite a linha: ");
+                System.out.print("Digite a linha: ");
                 linha = scanner.nextInt();
                 
-                System.out.println("Escolha a direcao(DIREITA ou ESQUERDA)" );
+                System.out.println("Escolha a direcao em que a embarcação será plotada(DIREITA ou ESQUERDA). : " );
                 direcao = scanner.next().toUpperCase();
                 
                 if(direcao.equals("DIREITA")) {        
@@ -219,14 +197,14 @@ public class Jogador {
     	}
     }
     
-    public void trocandoDeTurno(Jogador jogador1, Jogador jogador2) {
+    public static void trocandoDeTurno(Jogador jogador1, Jogador jogador2) {
     	while(jogador1.getVida() > 0 || jogador2.getVida() > 0) {
     		jogador1.disparo(jogador2);
-    		if(verificaMorte(jogador2)) {
-    			jogador1.marcarNaGrelhaDeAtaque();
+    		jogador1.getTabuleiroAtaque().mostraGrelha();
+    		if(jogador1.verificaMorte(jogador2)) {
     			jogador2.disparo(jogador1);
-        		verificaMorte(jogador1);
-        		jogador2.marcarNaGrelhaDeAtaque();
+    			jogador2.getTabuleiroAtaque().mostraGrelha();
+        		jogador2.verificaMorte(jogador1);
     		}else {
     			break;
     		}
