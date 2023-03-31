@@ -22,11 +22,6 @@ public class TabuleiroDeAtaque extends Tabuleiro implements Grelhas {
         }
 	}
 	
-	public void setNovaPosicao(int linha, int coluna) {
-		
-		super.getTabuleiroJogador()[linha][coluna] = 2;
-	}
-	
 	public void marcaNaGrelha(int linha, int coluna, Jogador adversario) {
 		
 		if(adversario.getTabuleiroDefesa().getTabuleiroJogador()[linha][coluna] == 1 || adversario.getTabuleiroDefesa().getTabuleiroJogador()[linha][coluna] == 2 || adversario.getTabuleiroDefesa().getTabuleiroJogador()[linha][coluna] == 3 || adversario.getTabuleiroDefesa().getTabuleiroJogador()[linha][coluna] == 4 || adversario.getTabuleiroDefesa().getTabuleiroJogador()[linha][coluna] == 5) {

@@ -19,7 +19,7 @@ public class Jogador {
     private NavioDe4Canos navioDe4Canos;
     private PortaAvioes portaAvioes;
     private int numero;
-    private int vida = 25;
+    private int vida;
 	
 	    
     
@@ -164,31 +164,6 @@ public class Jogador {
         }
        }
     
-    public void plotandoTodosNavios() throws PlotagemException{
-    	List<Embarcacao> embarcacoes = Arrays.asList(getNavioDe1Cano(), getNavioDe2Canos(), getNavioDe3Canos(), getNavioDe4Canos(), getPortaAvioes());
-    	
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Jogador " + this.numero + " plotando navios...");
-
-    	for(int i = 0; i < embarcacoes.size(); i++) {
-    		if(i == 4) {
-    			System.out.println("Digite a quantidade de Porta-Aviões: ");
-    			int quantidade = scanner.nextInt();
-    			for(int x = 0; x < quantidade; x++) {
-    	    		System.out.printf("plotando Porta-Aviões \n");
-    	    		escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
-    	    	}
-    		}else {
-    			System.out.printf("Digite a quantidade de navios de %d canos: ", i+1);
-    	        int quantidade = scanner.nextInt();
-    	        for(int x = 0; x < quantidade; x++) {
-    	    		System.out.printf("plotando navio de %d cano \n", i+1);
-    	    		escolherPosicaoDaEmbarcacao(embarcacoes.get(i));
-    	        }
-    		}
-    	}
-    }
-    
     public boolean verificaMorte(Jogador jogador) {
     	if(jogador.getVida() > 0) {
     		return true;
@@ -196,22 +171,6 @@ public class Jogador {
     		return false;
     	}
     }
-    
-    public static void trocandoDeTurno(Jogador jogador1, Jogador jogador2) {
-    	while(jogador1.getVida() > 0 || jogador2.getVida() > 0) {
-    		jogador1.disparo(jogador2);
-    		jogador1.getTabuleiroAtaque().mostraGrelha();
-    		if(jogador1.verificaMorte(jogador2)) {
-    			jogador2.disparo(jogador1);
-    			jogador2.getTabuleiroAtaque().mostraGrelha();
-        		jogador2.verificaMorte(jogador1);
-    		}else {
-    			break;
-    		}
-    	}
-    }
-    
-    
 
 	public NavioDe1Cano getNavioDe1Cano() {
 		return navioDe1Cano;
