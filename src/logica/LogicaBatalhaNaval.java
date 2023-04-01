@@ -26,36 +26,41 @@ public abstract class LogicaBatalhaNaval {
 		
 		int escolha = scanner.nextInt();
 		
-		System.out.println("-----------------------");
-    	System.out.println("     CONFIGURAÇÕES     ");
-    	System.out.println("-----------------------");
-    	System.out.println("1- Modo normal");
-    	System.out.println("2- Modo custom");
-    	System.out.println("-----------------------");
-    	System.out.println("Digite qual modo você quer jogar: ");
-    	
-    	int modo = scanner.nextInt();
-    	
-    	
-		if(modo == 1) {
-			Jogador jogador1 = new Jogador(1);
-			jogador1.setVida(25);
-	    	LogicaBatalhaNaval.plotandoTodosNavios(jogador1);
+		if(escolha == 1) {
+		
+			System.out.println("-----------------------");
+	    	System.out.println("     CONFIGURAÇÕES     ");
+	    	System.out.println("-----------------------");
+	    	System.out.println("1- Modo normal");
+	    	System.out.println("2- Modo custom");
+	    	System.out.println("-----------------------");
+	    	System.out.println("Digite qual modo você quer jogar: ");
 	    	
-	    	Jogador jogador2 = new Jogador(2);
-	    	jogador2.setVida(25);
-	    	LogicaBatalhaNaval.plotandoTodosNavios(jogador2);
+	    	int modo = scanner.nextInt();
 	    	
-	    	LogicaBatalhaNaval.trocandoDeTurno(jogador1, jogador2);
-	    }else if(modo == 2) {
-	    	Jogador jogador1 = new Jogador(1);
-	    	LogicaBatalhaNaval.plotandoTodosNaviosCustom(jogador1);
 	    	
-	    	Jogador jogador2 = new Jogador(2);
-	    	LogicaBatalhaNaval.plotandoTodosNaviosCustom(jogador2);
-	    	
-	    	LogicaBatalhaNaval.trocandoDeTurno(jogador1, jogador2);
-	    	
+			if(modo == 1) {
+				Jogador jogador1 = new Jogador(1);
+				jogador1.setVida(25);
+		    	LogicaBatalhaNaval.plotandoTodosNavios(jogador1);
+		    	
+		    	Jogador jogador2 = new Jogador(2);
+		    	jogador2.setVida(25);
+		    	LogicaBatalhaNaval.plotandoTodosNavios(jogador2);
+		    	
+		    	LogicaBatalhaNaval.trocandoDeTurno(jogador1, jogador2);
+		    }else if(modo == 2) {
+		    	Jogador jogador1 = new Jogador(1);
+		    	LogicaBatalhaNaval.plotandoTodosNaviosCustom(jogador1);
+		    	
+		    	Jogador jogador2 = new Jogador(2);
+		    	LogicaBatalhaNaval.plotandoTodosNaviosCustom(jogador2);
+		    	
+		    	LogicaBatalhaNaval.trocandoDeTurno(jogador1, jogador2);
+		    	
+			}
+		}else if(escolha == 2) {
+			
 		}
 	}
 	
@@ -114,20 +119,27 @@ public abstract class LogicaBatalhaNaval {
     	}
     }
 	
-    public static void trocandoDeTurno(Jogador jogador1, Jogador jogador2) {
-    	while(jogador1.getVida() > 0 || jogador2.getVida() > 0) {
+	public static void vencedorDaPartida(Jogador jogador) {
+		System.out.println("Parabéns, o Jogador " + jogador.getNumero() + " VENCEU a partida!");
+		jogador.setPontuacao(jogador.getPontuacao() + 1);
+	}
+	
+    public static void trocandoDeTurno(Jogador jogador1, Jogador jogador2) throws PlotagemException, ForaDoIndiceException {
+    	while(Jogador.verificaMorte(jogador1)) {
     		jogador1.getTabuleiroAtaque().mostraGrelha();
     		jogador1.disparo(jogador2);
-    		jogador1.getTabuleiroAtaque().mostraGrelha();
-    		if(jogador1.verificaMorte(jogador2)) {
+    		jogador1.getTabuleiroDefesa().mostraGrelha();
+    		if(Jogador.verificaMorte(jogador2)) {
     			jogador2.getTabuleiroAtaque().mostraGrelha();
     			jogador2.disparo(jogador1);
-    			jogador2.getTabuleiroAtaque().mostraGrelha();
-        		jogador2.verificaMorte(jogador1);
+    			jogador2.getTabuleiroDefesa().mostraGrelha();
     		}else {
-    			break;
+    			vencedorDaPartida(jogador1);
+    			LogicaBatalhaNaval.inicializaJogo();
     		}
     	}
+    	vencedorDaPartida(jogador2);
+    	LogicaBatalhaNaval.inicializaJogo();
     }
     
     public static int perguntarLinha() throws ForaDoIndiceException {

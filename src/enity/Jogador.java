@@ -26,6 +26,7 @@ public class Jogador {
     private PortaAvioes portaAvioes;
     private int numero;
     private int vida;
+    private int pontuacao = 0;
 	
 	    
     
@@ -216,7 +217,7 @@ public class Jogador {
         }
        }
     
-    public boolean verificaMorte(Jogador jogador) {
+    public static boolean verificaMorte(Jogador jogador) {
     	if(jogador.getVida() > 0) {
     		return true;
     	}else {
@@ -310,6 +311,16 @@ public class Jogador {
 
 	public void setTabuleiroDefesa(TabuleiroDeDefesa tabuleiroDefesa) {
 		this.tabuleiroDefesa = tabuleiroDefesa;
+	}
+
+
+	public int getPontuacao() {
+		return pontuacao;
+	}
+
+
+	public void setPontuacao(int pontuacao) {
+		this.pontuacao = pontuacao;
 	}
 
 }
