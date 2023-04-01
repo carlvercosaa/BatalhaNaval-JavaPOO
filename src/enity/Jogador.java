@@ -51,14 +51,12 @@ public class Jogador {
 			System.out.println("----------------------------");
 			System.out.println("Jogador" + this.numero);
 			System.out.println("Dispare contra o inimigo");
-			System.out.print("digite a coluna: ");
 			try {
 				coluna = LogicaBatalhaNaval.perguntarColuna();
 			} catch (ForaDoIndiceException e1) {
 				e1.getMessage();
 				disparo(adversario);
 			}
-			System.out.print("digite a linha: ");
 			try {
 				linha = LogicaBatalhaNaval.perguntarLinha();
 			} catch (ForaDoIndiceException e) {
