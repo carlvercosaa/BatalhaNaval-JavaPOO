@@ -128,11 +128,11 @@ public abstract class LogicaBatalhaNaval {
     	while(Jogador.verificaMorte(jogador1)) {
     		jogador1.getTabuleiroAtaque().mostraGrelha();
     		jogador1.disparo(jogador2);
-    		jogador1.getTabuleiroDefesa().mostraGrelha();
+    		jogador1.getTabuleiroAtaque().mostraGrelha();
     		if(Jogador.verificaMorte(jogador2)) {
     			jogador2.getTabuleiroAtaque().mostraGrelha();
     			jogador2.disparo(jogador1);
-    			jogador2.getTabuleiroDefesa().mostraGrelha();
+    			jogador2.getTabuleiroAtaque().mostraGrelha();
     		}else {
     			vencedorDaPartida(jogador1);
     			LogicaBatalhaNaval.inicializaJogo();
