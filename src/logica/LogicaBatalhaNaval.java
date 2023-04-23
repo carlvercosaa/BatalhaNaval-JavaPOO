@@ -7,13 +7,14 @@ import java.util.Scanner;
 import ExceptionsDaBatalha.DirecaoInvalidaException;
 import ExceptionsDaBatalha.EixoInvalidoException;
 import ExceptionsDaBatalha.ForaDoIndiceException;
+import ExceptionsDaBatalha.ForaDosLimitesDoArrayException;
 import ExceptionsDaBatalha.PlotagemException;
 import enity.Embarcacao;
 import enity.Jogador;
 
 public abstract class LogicaBatalhaNaval {
 	
-	public static void inicializaJogo() throws PlotagemException, ForaDoIndiceException {
+	public static void inicializaJogo() throws PlotagemException, ForaDoIndiceException, ForaDosLimitesDoArrayException {
 		Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("--------------");
@@ -52,19 +53,18 @@ public abstract class LogicaBatalhaNaval {
 		    }else if(modo == 2) {
 		    	Jogador jogador1 = new Jogador(1);
 		    	LogicaBatalhaNaval.plotandoTodosNaviosCustom(jogador1);
-		    	
+		    		
 		    	Jogador jogador2 = new Jogador(2);
 		    	LogicaBatalhaNaval.plotandoTodosNaviosCustom(jogador2);
 		    	
 		    	LogicaBatalhaNaval.trocandoDeTurno(jogador1, jogador2);
-		    	
 			}
 		}else if(escolha == 2) {
 			
 		}
 	}
 	
-	public static void plotandoTodosNavios(Jogador jogador) throws PlotagemException, ForaDoIndiceException {
+	public static void plotandoTodosNavios(Jogador jogador) throws PlotagemException, ForaDoIndiceException, ForaDosLimitesDoArrayException {
     	List<Embarcacao> embarcacoes = Arrays.asList(jogador.getNavioDe1Cano(), jogador.getNavioDe2Canos(), jogador.getNavioDe3Canos(), jogador.getNavioDe4Canos(), jogador.getPortaAvioes());
     	int y = 4;
     	for(int i = 0; i < embarcacoes.size(); i++) {
@@ -82,7 +82,7 @@ public abstract class LogicaBatalhaNaval {
     	}
     }
 	
-	public static void plotandoTodosNaviosCustom(Jogador jogador) throws PlotagemException, ForaDoIndiceException{
+	public static void plotandoTodosNaviosCustom(Jogador jogador) throws PlotagemException, ForaDoIndiceException, ForaDosLimitesDoArrayException{
     	List<Embarcacao> embarcacoes = Arrays.asList(jogador.getNavioDe1Cano(), jogador.getNavioDe2Canos(), jogador.getNavioDe3Canos(), jogador.getNavioDe4Canos(), jogador.getPortaAvioes());
     	
     	Scanner scanner = new Scanner(System.in);
@@ -124,7 +124,7 @@ public abstract class LogicaBatalhaNaval {
 		jogador.setPontuacao(jogador.getPontuacao() + 1);
 	}
 	
-    public static void trocandoDeTurno(Jogador jogador1, Jogador jogador2) throws PlotagemException, ForaDoIndiceException {
+    public static void trocandoDeTurno(Jogador jogador1, Jogador jogador2) throws PlotagemException, ForaDoIndiceException, ForaDosLimitesDoArrayException {
     	while(Jogador.verificaMorte(jogador1)) {
     		jogador1.getTabuleiroAtaque().mostraGrelha();
     		jogador1.disparo(jogador2);
@@ -165,39 +165,15 @@ public abstract class LogicaBatalhaNaval {
         return coluna;
     }
     
-    public static String perguntarEixo() throws EixoInvalidoException {
-    	Scanner scanner = new Scanner(System.in);
-    	
-    	System.out.println("Escolha o eixo que a embarcação será plotada(VERTICAL ou HORIZONTAL). : " );
-    	String eixo = scanner.next();
-    	eixo = eixo.toUpperCase();
-    	if(eixo.equals("VERTICAL") || eixo.equals("HORIZONTAL")) {
-    		return eixo;
-    	}else {
-    		throw new EixoInvalidoException("Eixo inexistente!... tente plotar novamente.");
-    	}
-    }
-    
     public static String perguntarDirecao() throws DirecaoInvalidaException {
     	Scanner scanner = new Scanner(System.in);
     	
-    	System.out.println("Escolha a direcao que a embarcação será plotada(BAIXO ou CIMA). : " );
-    	String direcao = scanner.next();
-    	direcao = direcao.toUpperCase();
-    	if(direcao.equals("BAIXO") || direcao.equals("CIMA")) {
-    		return direcao;
-    	}else {
-    		throw new DirecaoInvalidaException("Direção inexistente!... tente plotar novamente.");
-    	}
-    }
-    
-    public static String perguntarDirecaoB() throws DirecaoInvalidaException {
-    	Scanner scanner = new Scanner(System.in);
+    	System.out.println("Escolha a direcao que a embarcação será plotada(BAIXO,CIMA,DIREITA OU ESQUERDA). : " );
     	
-    	System.out.println("Escolha a direcao em que a embarcação será plotada(DIREITA ou ESQUERDA). : " );
     	String direcao = scanner.next();
+    	
     	direcao = direcao.toUpperCase();
-    	if(direcao.equals("DIREITA") || direcao.equals("ESQUERDA")) {
+    	if(direcao.equals("BAIXO") || direcao.equals("CIMA") || direcao.equals("DIREITA") || direcao.equals("ESQUERDA")) {
     		return direcao;
     	}else {
     		throw new DirecaoInvalidaException("Direção inexistente!... tente plotar novamente.");

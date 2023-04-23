@@ -5,6 +5,7 @@ import java.util.Scanner;
 import ExceptionsDaBatalha.DirecaoInvalidaException;
 import ExceptionsDaBatalha.EixoInvalidoException;
 import ExceptionsDaBatalha.ForaDoIndiceException;
+import ExceptionsDaBatalha.ForaDosLimitesDoArrayException;
 import ExceptionsDaBatalha.PlotagemException;
 import logica.LogicaBatalhaNaval;
 
@@ -79,7 +80,7 @@ public class Jogador {
 		return true;
     }
 
-	public static void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao,Jogador jogador) throws PlotagemException{
+	public static void escolherPosicaoDaEmbarcacao(Embarcacao nomeDaEmbarcacao,Jogador jogador) throws PlotagemException, ForaDoIndiceException, ForaDosLimitesDoArrayException{
         
         int linha = 0;
         int coluna = 0;
@@ -113,108 +114,74 @@ public class Jogador {
             jogador.tabuleiroDefesa.mostraGrelha();
             
         }else{
-            try {
-				eixo = LogicaBatalhaNaval.perguntarEixo();
-			} catch (EixoInvalidoException e2) {
-				e2.getMessage();
-				Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+        	try{
+        		direcao = LogicaBatalhaNaval.perguntarDirecao();
+			}catch (DirecaoInvalidaException e1) {
+				e1.getMessage();
 			}
-            
-			if(eixo.equals("VERTICAL")) {
-            	jogador.tabuleiroDefesa.mostraGrelha();
 
-            	try {
-            		coluna = LogicaBatalhaNaval.perguntarColuna();
-            	}catch(ForaDoIndiceException e){
-            		e.getMessage();
-            		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
-            	}
+            try {
+            	coluna = LogicaBatalhaNaval.perguntarColuna();
+            }catch(ForaDoIndiceException e){
+            	e.getMessage();
+            	Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+           	}
                 
-            	try {
-            		linha = LogicaBatalhaNaval.perguntarLinha();
-            	}catch(ForaDoIndiceException e) {
-            		e.getMessage();
-            		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
-            	}
+           	try {
+           		linha = LogicaBatalhaNaval.perguntarLinha();
+           	}catch(ForaDoIndiceException e) {
+           		e.getMessage();
+           		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+           	}
 
+                
+           if(direcao.equals("BAIXO")) {        
                 try {
-					direcao = LogicaBatalhaNaval.perguntarDirecao();
-				} catch (DirecaoInvalidaException e1) {
-					e1.getMessage();
+                	jogador.tabuleiroDefesa.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	jogador.tabuleiroDefesa.mostraGrelha();
 				}
-                
-                if(direcao.equals("BAIXO")) {        
-                	try {
-                		jogador.tabuleiroDefesa.verificarEPlotarVerticalParaBaixo(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                		jogador.tabuleiroDefesa.mostraGrelha();
-					}
-                	catch (PlotagemException e) {
-                		System.out.println(e.getMessage());
-                		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
-					}
+                catch (PlotagemException e) {
+                	System.out.println(e.getMessage());
+                	Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+				}
 
-                }
+           }
                 
-                else if(direcao.equals("CIMA")) {    
-                	try {
-                		jogador.tabuleiroDefesa.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                		jogador.tabuleiroDefesa.mostraGrelha();
-					} 
-                	catch (PlotagemException e) {
-						System.out.println(e.getMessage());
-						Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
-					}
-                }
-            }
-            else if(eixo.equals("HORIZONTAL")){
-            	jogador.tabuleiroDefesa.mostraGrelha(); 
-
-            	try {
-            		coluna = LogicaBatalhaNaval.perguntarColuna();
-            	}catch(ForaDoIndiceException e){
-            		e.getMessage();
-            		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
-            	}
-                
-            	try {
-            		linha = LogicaBatalhaNaval.perguntarLinha();
-            	}catch(ForaDoIndiceException e) {
-            		e.getMessage();
-            		Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
-            	}
-                
-                try {
-                	direcao = LogicaBatalhaNaval.perguntarDirecaoB();
-				} catch (DirecaoInvalidaException e1) {
-					e1.getMessage();
+          else if(direcao.equals("CIMA")) {    
+               	try {
+               		jogador.tabuleiroDefesa.verificarEPlotarVerticalParaCima(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+               		jogador.tabuleiroDefesa.mostraGrelha();
+               	} 
+                catch (PlotagemException e) {
+					System.out.println(e.getMessage());
 					Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
 				}
-                
-                if(direcao.equals("DIREITA")) {        
-                	try {
-                		jogador.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                		jogador.tabuleiroDefesa.mostraGrelha();
-					} 
-                	catch (PlotagemException e) {
-						System.out.println(e.getMessage());
-						Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
-					}
+          }                
+             
+          else if(direcao.equals("DIREITA")) {        
+        	 	try{
+                	jogador.tabuleiroDefesa.verificarEPlotarHorizontalParaDireita(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+                	jogador.tabuleiroDefesa.mostraGrelha();
+				} 
+                catch (PlotagemException e) {
+					System.out.println(e.getMessage());
+					Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+				}
                 	
-                }
-                else if(direcao.equals("ESQUERDA")){
-                	try {
-                		jogador.tabuleiroDefesa.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
-                		jogador.tabuleiroDefesa.mostraGrelha();
-					} 
-                	catch (PlotagemException e) {
-						System.out.println(e.getMessage());
-						Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
-					}
-                	
-                }
-            }
+          }
+          else if(direcao.equals("ESQUERDA")){
+               	try {
+               		jogador.tabuleiroDefesa.verificarEPlotarHorizontalParaEsquerda(nomeDaEmbarcacao.getTamanho(), linha, coluna);
+               		jogador.tabuleiroDefesa.mostraGrelha();
+				} 
+               	catch (PlotagemException e) {
+					System.out.println(e.getMessage());
+					Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
+				}
+               	
+               }
+           }
             
-        }
        }
     
     public static boolean verificaMorte(Jogador jogador) {

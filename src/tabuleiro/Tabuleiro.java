@@ -24,5 +24,9 @@ public abstract class Tabuleiro {
 	public int[][] getTabuleiroJogador() {
         return this.tabuleiroJogador;
     }
+	
+	public void getPeca(int linha,int coluna) {
+		int peca = getTabuleiroJogador()[linha][coluna];
+	}
 
 }

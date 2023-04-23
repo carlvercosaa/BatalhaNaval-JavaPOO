@@ -1,5 +1,7 @@
 package tabuleiro;
 
+import ExceptionsDaBatalha.ForaDoIndiceException;
+import ExceptionsDaBatalha.ForaDosLimitesDoArrayException;
 import ExceptionsDaBatalha.PlotagemException;
 import enity.Jogador;
 
@@ -28,7 +30,7 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
 
 	}
 	
-	public void verificarEPlotarVerticalParaBaixo(int tamanho, int  linha, int  coluna) throws PlotagemException{
+	public void verificarEPlotarVerticalParaBaixo(int tamanho, int  linha, int  coluna) throws PlotagemException, ForaDoIndiceException, ForaDosLimitesDoArrayException{
         int contador = 0;
         
         if(tamanho == 5) {
@@ -48,11 +50,12 @@ public class TabuleiroDeDefesa extends Tabuleiro implements Grelhas {
     		if(contador != tamanho) {
     			throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
     		}
-        }else {
+        }else{
         	for(int c = 0; c < tamanho; c++){
                 if(super.getTabuleiroJogador()[linha+c][coluna] == -1){
-                    contador += 1;
-                }
+	                    contador += 1;
+	                }
+                	
             }
         	if(contador != tamanho) {
         		throw new PlotagemException("Não foi possivel plotar o navio no local indicado.");
