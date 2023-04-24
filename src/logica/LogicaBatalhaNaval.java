@@ -173,9 +173,11 @@ public abstract class LogicaBatalhaNaval {
     	String direcao = scanner.next();
     	
     	direcao = direcao.toUpperCase();
+    	
     	if(direcao.equals("BAIXO") || direcao.equals("CIMA") || direcao.equals("DIREITA") || direcao.equals("ESQUERDA")) {
     		return direcao;
     	}else {
+    		perguntarDirecao();
     		throw new DirecaoInvalidaException("Direção inexistente!... tente plotar novamente.");
     	}
     }
