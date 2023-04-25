@@ -1,17 +1,11 @@
 package enity;
 
-import java.util.Scanner;
 
 import ExceptionsDaBatalha.DirecaoInvalidaException;
-import ExceptionsDaBatalha.EixoInvalidoException;
 import ExceptionsDaBatalha.ForaDoIndiceException;
 import ExceptionsDaBatalha.ForaDosLimitesDoArrayException;
 import ExceptionsDaBatalha.PlotagemException;
 import logica.LogicaBatalhaNaval;
-
-import java.util.Arrays;
-import java.util.List;
-
 import tabuleiro.TabuleiroDeAtaque;
 import tabuleiro.TabuleiroDeDefesa;
 
