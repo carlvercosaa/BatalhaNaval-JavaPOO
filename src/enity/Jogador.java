@@ -110,7 +110,8 @@ public class Jogador {
         	try{
         		direcao = LogicaBatalhaNaval.perguntarDirecao();
 			}catch (DirecaoInvalidaException e1) {
-				e1.getMessage();
+				System.out.println(e1.getMessage());
+				Jogador.escolherPosicaoDaEmbarcacao(nomeDaEmbarcacao, jogador);
 			}
 
             try {
