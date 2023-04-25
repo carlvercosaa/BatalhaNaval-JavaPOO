@@ -16,7 +16,6 @@ import tabuleiro.TabuleiroDeAtaque;
 import tabuleiro.TabuleiroDeDefesa;
 
 public class Jogador {
-    private static Object eixo;
 	private static String direcao;
 	private TabuleiroDeAtaque tabuleiroAtaque;
     private TabuleiroDeDefesa tabuleiroDefesa;
