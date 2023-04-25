@@ -79,7 +79,6 @@ public class Jogador {
         int coluna = 0;
         
         if(nomeDaEmbarcacao.getNomeDaEmbarcacao()==("Navio_De_1_Cano")){
-        	jogador.tabuleiroDefesa.mostraGrelha();
             
         	System.out.println("Jogador: " + jogador.numero);
         	try {

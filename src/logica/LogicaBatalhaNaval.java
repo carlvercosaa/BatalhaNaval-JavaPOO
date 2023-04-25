@@ -67,10 +67,10 @@ public abstract class LogicaBatalhaNaval {
 	public static void plotandoTodosNavios(Jogador jogador) throws PlotagemException, ForaDoIndiceException, ForaDosLimitesDoArrayException {
     	List<Embarcacao> embarcacoes = Arrays.asList(jogador.getNavioDe1Cano(), jogador.getNavioDe2Canos(), jogador.getNavioDe3Canos(), jogador.getNavioDe4Canos(), jogador.getPortaAvioes());
     	int y = 3;
+    	jogador.getTabuleiroDefesa().mostraGrelha();
     	for(int i = 0; i < embarcacoes.size(); i++) {
     		Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
     		for(int x = 0; x < y; x++) {
-    			System.out.println(y);
     			System.out.printf("plotando navio de %d cano \n", i+1);
     			Jogador.escolherPosicaoDaEmbarcacao(embarcacoes.get(i),jogador);
     		}
